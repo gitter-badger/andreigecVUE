@@ -7,6 +7,7 @@
 	
 
 	exports.app = new Vue({
+		el: '#app',
 		// app initial state
 		data: {
 			PopularTitles:[],
@@ -14,6 +15,10 @@
 			editedTodo: null,
 			visibility: 'all'
 		},
+
+		 components: { 'title-preview': TitlePreview,
+		 'carousel':VueStrap.carousel,
+		 'slider':VueStrap.slider }
 		
 		
 	});

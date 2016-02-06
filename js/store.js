@@ -15,24 +15,48 @@
 //   }
 // });
 
-	//var TitlesListFB = new Firebase(baseURL + 'Titles/List');
-	//var TitlesListData=[];
+function SetData(item)
+{
+item.HeadImage=item.Images!=null?item.Images[0]:'500x200.png';
+var td=_.truncate(item.Description,100,'...');
+item.HeadDescription=item.Description!=null?td:'';
+}
+
+function setPopularAppData(data)
+{
+	//http://placepu.gs/500/200
+
+	data.forEach(function(s){
+		SetData(s);
+		
+app.PopularTitles.push(s);			
+		});
+}
+	
+
+	if (localStorage.getItem("items"))
+	{
+		var items=JSON.parse(localStorage.getItem("items"));
+		setPopularAppData(items);
+	}
+	else{
+		var TitlesListFB = new Firebase(baseURL + 'Titles/List');
+	var TitlesListData=[];
 
 	var TitlesPopularFB = new Firebase(baseURL + 'Titles/Popular');
 	
-// 	TitlesListFB.on('value', function (snapshot) {
-// TitlesListData=snapshot;
-// });
+	TitlesListFB.on('value', function (snapshot) {
+	TitlesListData=snapshot;
+	});
 
 	TitlesPopularFB.on('value', function (snapshot) {
-		var item = snapshot.val()
-		console.log('1');
-		console.log(item);
-		item.forEach(function(s){
-app.PopularTitles.push(s);			
-console.log('.');
+		var items = snapshot.val()
+		setPopularAppData(items);
+
+		localStorage.setItem("items", JSON.stringify(app.PopularTitles));
 		});
-});
+
+	}
 
 
 	
