@@ -18,8 +18,14 @@ const router = new VueRouter({
 configRouter(router)
 
 // boostrap the app
-
 router.start(App, '#app')
+
+// new Vue({
+//   el: 'body',
+//   components: { App }
+// })
+
+
 
 // just for debugging
 window.router = router

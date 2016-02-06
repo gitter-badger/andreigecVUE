@@ -1,20 +1,23 @@
 <script>
-var Vue = require('vue')
-Vue.component('App', {
+	var routerView = require('vue-router')
+	
+	export default {
 		// app initial st1ate
-		data: {
-			PopularTitles:	[],
-			newTodo:	'',
-			editedTodo: null,
-			visibility:	'all'
-		}
-	})
+		data: function () {
+			return {
+				PopularTitles:	[],
+				newTodo:	'',
+				editedTodo: null,
+				visibility:	'all'
+			}
+		},
 
-</script>
+		 components: { 'router-view': routerView }
+	}
+
+	</script>
 
 
-<template>
-  <div id="app">
-     <router-view></router-view>
-  </div>
-</template>
+	<template>
+			<router-view></router-view>
+	</template>
