@@ -1,24 +1,18 @@
-/*global app, Router */
+// create a router instance
+// you can pass in additional options here, but
+// let's keep it simple for now.
+var router = new VueRouter()
 
-(function (app, Router) {
+// define some routes.
+// each route should map to a component.
+// we'll talk about nested routes later.
+router.map({
+  '/': {
+    component: Home
+  }  
+})
 
-	'use strict';
-
-	var router = new Router();
-
-	['all', 'active', 'completed'].forEach(function (visibility) {
-		router.on(visibility, function () {
-			app.visibility = visibility;
-		});
-	});
-
-	router.configure({
-		notfound: function () {
-			window.location.hash = '';
-			app.visibility = 'all';
-		}
-	});
-
-	router.init();
-
-})(app, Router);
+// now we can start the app!
+// router will create an instance of App and mount to
+// the element matching the selector #app.
+router.start(app, '#app')

@@ -21,100 +21,10 @@ _={};
 		<header class="header">
 				<h1>andreigec.net</h1>				
 			</header>
-<div id="app">
 
-<template  id="title-preview">
-
-<div class="well preview previewsmall img-rounded"> 
-	<div class="row">
-			<div class="previewSmallImgDiv">
-				<a href="#" class="headerLink">
-					<div class="previewSmallImg" style="background-image:url(#)">
-					</div>
-				</a>
-			</div>
-
-		<div class="text-center header-text">
-			<a href="#">
-				<h3 class=" linkColour previewSmallTitle"><slot name="Name"></slot></h3>
-			</a>
-		</div>
-		<p class="text-center well"></p>
-
-		<p class="text-center">
-			<a class="btn btn-primary" href="#">
-				<span class="glyphicon glyphicon-zoom-in"></span>View title »
-			</a>
-		</p>
-	</div>
-</div>
-	</template >
-
-					
-				<style>
-					.popular-carousel{
-			
-					}
-
-					.carousel--item{
-						width:500px;
-							margin-left: auto;
-    margin-right: auto;
-    position: relative;
-					}
-
-.carousel-text{
-						    position: absolute;
-						    color: white;
-						    width: 90%;
-						    margin-left: 5%;
-						    background-color: rgba(0,0,0,.2);
-						    left:0;
-					}
-
-						.carousel-caption{
-						    height:80px;
-					}
-
-						.carousel-title{ 
-						   height: 30px;
-    text-align: center;
-    top: 20px;
-    font-size: 21px;
-    color: lightblue;
-					}
-
-
-
-
-</style>
-			
-					<carousel class="popular-carousel">
-					
-  <slider  v-for="title in PopularTitles">
-  <a v-bind:href='title.GHPageURL' target="_blank">
-  <div class='carousel--item'>
-  <div class="carousel-text carousel-title">
-       {{title.Name}}
-     </div>	
-<img v-bind:src="title.HeadImage" class='carousel--item-image'/>
-    <div class="carousel-text carousel-caption">
-       {{title.HeadDescription}}
-     </div>	
-     </div>    
-     </a>
-  </slider>
-  </carousel>
-
-			<!-- <ul class="popular">
-					<li class="popular" v-for="title in PopularTitles">
-						<title-preview>
-							 <template slot="Name">{{title.Name}}</template>
-
-						</title-preview>
-						</li>
-						</ul>
-						</div> -->
+			<div id="app">      
+      <router-view></router-view>
+    </div>
 
 
 
@@ -126,14 +36,6 @@ _={};
 			<p>Written by andreigec.net</a></p>
 		</footer>
 
-		<script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-strap/1.0.8/vue-strap.min.js"></script>
-		<script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
-		<script src="node_modules/director/build/director.js"></script>
-		
-		<script src="js/routes.js"></script>
-		<script src="js/directives.js"></script>
-		<script src="js/app.js"></script>
-		<script src="js/store.js"></script>		
+		<script src="dist/bundle.js"></script>
 	</body>
 </html>
