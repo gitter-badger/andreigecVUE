@@ -1,3 +1,18 @@
+<script>
+	var carousel = require('vue-strap').carousel
+	var slider = require('vue-strap').slider
+
+	module.exports = {
+
+		 components: {
+    'carousel': carousel,
+    'slider': slider
+  }
+
+	}
+
+</script>
+
 <style>
 	.popular-carousel{
 
@@ -51,12 +66,3 @@
 		</slider>
 	</carousel>
 </template>
-
-<script>
-	var Vue = require('vue')
-
-	Vue.component('home', {
-		template: 'test home'
-	})
-
-</script>
