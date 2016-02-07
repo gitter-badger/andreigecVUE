@@ -1,17 +1,7 @@
 <script>
 	var routerView = require('vue-router')
 	
-	export default {
-		// app initial st1ate
-		data: function () {
-			return {
-				PopularTitles:	[],
-				newTodo:	'',
-				editedTodo: null,
-				visibility:	'all'
-			}
-		},
-
+	export default {	
 		 components: { 'router-view': routerView }
 	}
 

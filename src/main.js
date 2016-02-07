@@ -6,6 +6,9 @@ var $ = require('jquery')
 window.jQuery = $
 window.$ = $
 require('bootstrap-loader')
+var store = require('./store')
+
+store.default.actions.GetAllData()
 
 
 var App = require('./app')

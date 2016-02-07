@@ -1,13 +1,20 @@
 <script>
 	var carousel = require('vue-strap').carousel
 	var slider = require('vue-strap').slider
+	var store = require('../store.js')
 
 	module.exports = {
 
-		 components: {
-    'carousel': carousel,
-    'slider': slider
-  }
+		components: {
+			'carousel': carousel,
+			'slider': slider
+		},
+
+		computed: {
+			PopularTitles () {
+				return store.default.state.PopularTitles
+			}
+		}
 
 	}
 
@@ -31,11 +38,12 @@
 		width: 90%;
 		margin-left: 5%;
 		background-color: rgba(0,0,0,.2);
-		left:0;
+		left:0 !important;
 	}
 
 	.carousel-caption{
 		height:80px;
+		left: 0 !important;
 	}
 
 	.carousel-title{ 
@@ -52,7 +60,7 @@
 	<carousel class="popular-carousel">
 
 		<slider  v-for="title in PopularTitles">
-			<a v-bind:href='title.GHPageURL' target="_blank">
+			<a v-bind:href='title.Link' target="_blank">
 				<div class='carousel--item'>
 					<div class="carousel-text carousel-title">
 						{{title.Name}}
