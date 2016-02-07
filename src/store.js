@@ -11,16 +11,16 @@ Vue.use(Vuex)
 var Firebase = require('firebase')
 var img = require('./assets/500x200.png')
 
-
 const state = {
 	baseURL: 'https://intense-inferno-4020.firebaseio.com/Backgrounder/Website/',
-	PopularTitles:	[],
+	PopularTitles: [],
 	TitlesList: [],
+	NewTitles: [],
+	FeaturedTitles: [],
 	newTodo:	'',
 	editedTodo: null,
 	visibility:	'all'
 }
-
 
 const actions = {
 	GetAllData: GetAllData,
@@ -39,12 +39,14 @@ export default new Vuex.Store({
 })
 
 function GetAllData () {
+	GetFeaturedData()
 	GetPopularData()
+	GetNewData()
 	GetListData()
 }
 
 function SetData (item) {
-	item.HeadImage = item.Images != null ? item.Images[0] : img
+	item.HeadImage = item.Images != null ? item.Images[0].URL : img
 	var td = _.truncate(item.Description, 100, '...')
 	item.HeadDescription = item.Description != null ? td : ''
 	item.Link = '/Titles/Details/' + item.Name
@@ -73,6 +75,52 @@ function GetPopularData () {
 	}
 }
 //#endregion popular
+
+//#region featured
+function setFeaturedAppData (data) {
+	data.forEach (function (s) {
+		SetData(s)		
+		state.FeaturedTitles.push(s)
+	})
+}
+
+function GetFeaturedData () {
+	var key = 'new'
+	if (localStorage.getItem(key)) {
+		setFeaturedAppData(JSON.parse(localStorage.getItem(key)))
+	}
+	else {
+		var fireb = new Firebase(state.baseURL + 'Titles/New')
+		fireb.on('value', function (snapshot) {
+			setFeaturedAppData(snapshot.val())
+			localStorage.setItem(key, JSON.stringify(state.FeaturedTitles))
+		})
+	}
+}
+//#end region featured
+
+//#region new
+function setNewAppData (data) {
+	data.forEach (function (s) {
+		SetData(s)		
+		state.NewTitles.push(s)
+	})
+}
+
+function GetNewData () {
+	var key = 'new'
+	if (localStorage.getItem(key)) {
+		setNewAppData(JSON.parse(localStorage.getItem(key)))
+	}
+	else {
+		var fireb = new Firebase(state.baseURL + 'Titles/New')
+		fireb.on('value', function (snapshot) {
+			setNewAppData(snapshot.val())
+			localStorage.setItem(key, JSON.stringify(state.NewTitles))
+		})
+	}
+}
+//#endregion new
 
 //#region list
 function SetListData (data) {
