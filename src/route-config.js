@@ -7,9 +7,7 @@ export function configRouter (router) {
 		'/': {
 			component: Home
 		},
-		'/Titles/Details/:titleName': {
-			  //component: Vue.extend({
-          //template: '<titledetails :titlename="{{$route.params.titlename}}"></titledetails>'
+		'*/Titles/Details/:titleName': {
           component: TitleDetails
       },
     // not found handler
