@@ -16,7 +16,7 @@ deploy:
   acl: bucket_owner_full_control
   skip_cleanup: true
   region: ap-southeast-2
-  local-dir: build
+  local-dir: ../../build
   detect_encoding: true
   on:
     repo: andreigec/andreigecVUE
