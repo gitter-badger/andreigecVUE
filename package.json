@@ -23,6 +23,7 @@
     "bootstrap-loader": "^1.0.7",
     "bootstrap-sass": "^3.3.6",
     "connect-history-api-fallback": "^1.1.0",
+    "coveralls": "^2.11.6",
     "css-loader": "^0.23.1",
     "eslint": "^1.10.3",
     "eslint-friendly-formatter": "^1.2.2",

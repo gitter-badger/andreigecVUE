@@ -7,6 +7,12 @@ before_deploy:
 - npm config set loglevel=warn&&npm config set loglevel=warn
 - git config core.autocrlf false
 - cd /home/travis/build/andreigec/andreigecVUE
+- npm run build
+- ls
+script:
+  - npm test --cover
+after_script:
+  - if [[ `node --version` == *v0.12* ]]; then cat ./build/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js; fi
 deploy:
   provider: s3
   edge: true
@@ -18,7 +24,7 @@ deploy:
   acl: bucket_owner_full_control
   skip_cleanup: true
   region: ap-southeast-2
-  local-dir: build
+  local-dir: dist
   detect_encoding: true
   on:
     repo: andreigec/andreigecVUE
