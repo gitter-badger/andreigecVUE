@@ -23,9 +23,6 @@
 
 </script>
 
-
-
-
 <template>
 
 <home-carousel name="Popular Titles" v-bind:items="PopularTitles"></home-carousel>
