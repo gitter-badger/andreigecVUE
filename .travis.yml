@@ -6,6 +6,7 @@ install:
 before_deploy:
 - npm config set loglevel=warn&&npm config set loglevel=warn
 - git config core.autocrlf false
+- cd /home/travis/build/andreigec/andreigecVUE
 deploy:
   provider: s3
   edge: true
