@@ -10,9 +10,9 @@ before_deploy:
 - npm run build
 - ls
 script:
-  - npm test --cover
+- npm test --cover
 after_script:
-  - cat ./build/reports/report-lcovonly.txt
+- cat ./build/reports/report-lcovonly.txt
 deploy:
   provider: s3
   edge: true
