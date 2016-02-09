@@ -1,8 +1,10 @@
 var path = require('path')
+var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main.js',
+    vendor: [ "jquery","bootstrap-loader","bootstrap-sass","babel-polyfill", "underscore-node","firebase","vue","vuex","vue-router","vue-strap"],
   },
   output: {
     path: path.resolve(__dirname, '../dist/static'),
@@ -56,5 +58,12 @@ module.exports = {
   },
   eslint: {
     formatter: require('eslint-friendly-formatter')
-  }
+  },
+   plugins: [
+     new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        }),
+    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+  ]
 }

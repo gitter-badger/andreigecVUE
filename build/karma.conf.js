@@ -6,9 +6,9 @@ module.exports = function (config) {
     browsers: ['PhantomJS'],
     frameworks: ['jasmine'],
     reporters: ['spec', 'coverage'],
-    files: ['../test/unit/index.js'],
+    files: ['../test/unit/*.spec.js'],
     preprocessors: {
-      '../test/unit/index.js': ['webpack', 'coverage']
+      '../test/unit/*.spec.js': ['webpack', 'coverage']
     },
     webpack: webpackConf,
     webpackMiddleware: {
@@ -16,7 +16,7 @@ module.exports = function (config) {
     },
      coverageReporter: {
       // specify a common output directory
-      dir: 'reports',
+      dir: '../test/unit/reports',
       reporters: [
         // reporters not supporting the `file` property
         { type: 'html', subdir: 'report-html' },

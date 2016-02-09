@@ -22,6 +22,7 @@
     "babel-runtime": "^6.5.0",
     "bootstrap-loader": "^1.0.7",
     "bootstrap-sass": "^3.3.6",
+    "caniuse-db": "^1.0.30000409",
     "connect-history-api-fallback": "^1.1.0",
     "coveralls": "^2.11.6",
     "css-loader": "^0.23.1",
