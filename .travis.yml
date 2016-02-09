@@ -11,8 +11,7 @@ before_deploy:
 - ls
 script:
 - npm test --cover
-after_script:
-- cat ./build/reports/report-lcovonly.txt
+after_script: "cat ./build/reports/report-lcovonly.txt | ./node_modules/coveralls/bin/coveralls.js"
 deploy:
   provider: s3
   edge: true
@@ -27,4 +26,4 @@ deploy:
   local-dir: dist
   detect_encoding: true
   on:
-    repo: andreigec/andreigecVUE
+    repo: andreigec/andreigecVUE  
