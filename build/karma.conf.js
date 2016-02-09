@@ -4,11 +4,11 @@ delete webpackConf.entry
 module.exports = function (config) {
   config.set({
     browsers: ['PhantomJS'],
-    frameworks: ['karma-webpack','jasmine'],
+    frameworks: ['jasmine'],
     reporters: ['spec', 'coverage'],
-    files: ['**/*.spec.js'],
+    files: ['../test/unit/index.js'],
     preprocessors: {
-      '**/*.spec.js': ['webpack', 'coverage']
+      '../test/unit/index.js': ['webpack', 'coverage']
     },
     webpack: webpackConf,
     webpackMiddleware: {
@@ -16,7 +16,7 @@ module.exports = function (config) {
     },
      coverageReporter: {
       // specify a common output directory
-      dir: '../test/unit/reports',
+      dir: 'reports',
       reporters: [
         // reporters not supporting the `file` property
         { type: 'html', subdir: 'report-html' },
@@ -25,13 +25,6 @@ module.exports = function (config) {
         // output them in the `dir` directory
         { type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' }
       ]
-    },
-     plugins: [
-            require("karma-webpack"),
-            require('karma-jasmine'),
-            require('karma-spec-reporter'),
-            require('karma-coverage'),
-            require('karma-phantomjs-launcher')
-        ]
+    }
 })
 }

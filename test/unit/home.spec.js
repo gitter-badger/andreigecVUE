@@ -1,10 +1,7 @@
 /* global describe, it, expect */
-// Polyfill fn.bind() for PhantomJS
-/* eslint-disable no-extend-native */
-Function.prototype.bind = require('function-bind')
 
-var Vue = require('vue')
-var  Home = require('src/containers/home')
+import Vue from 'vue'
+import Home from 'src/containers/home'
 
 describe('home.vue', () => {
    it('has popular titles', () => {

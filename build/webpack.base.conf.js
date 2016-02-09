@@ -58,12 +58,5 @@ module.exports = {
   },
   eslint: {
     formatter: require('eslint-friendly-formatter')
-  },
-   plugins: [
-     new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery"
-        }),
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
-  ]
+  }
 }
