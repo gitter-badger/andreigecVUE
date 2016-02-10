@@ -4,9 +4,9 @@ node_js:
 install:
 - npm install -q
 script:
-- npm test --cover
 - cd /home/travis/build/andreigec/andreigecVUE
 - ls
+- npm test --cover
 before_deploy:
 - npm config set loglevel=warn&&npm config set loglevel=warn
 - git config core.autocrlf false

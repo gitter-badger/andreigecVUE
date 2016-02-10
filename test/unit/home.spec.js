@@ -1,7 +1,7 @@
 /* global describe, it, expect */
 
 import Vue from 'vue'
-import Home from 'src/containers/home'
+import Home from 'src/containers/home.vue'
 
 describe('home.vue', () => {
    it('has popular titles', () => {
