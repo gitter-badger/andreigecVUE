@@ -11,13 +11,6 @@ cache:
   - node_modules
 script:
 - cd /home/travis/build/andreigec/andreigecVUE
-- ls -al
-- cd src
-- ls -al
-- mv Containers cc
-- mv cc containers
-- cd containers
-- ls -al
 - npm test --cover
 before_deploy:
 - cd /home/travis/build/andreigec/andreigecVUE
