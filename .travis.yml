@@ -5,6 +5,9 @@ install:
 - npm config set loglevel=warn&&npm config set loglevel=warn
 - git config core.autocrlf false
 - npm install -q
+cache:
+  directories:
+  - node_modules
 script:
 - cd /home/travis/build/andreigec/andreigecVUE
 - ls
