@@ -14,8 +14,8 @@ script:
 - ls -al
 - cd src
 - ls -al
-- move Containers cc
-- move cc containers
+- mv Containers cc
+- mv cc containers
 - cd containers
 - ls -al
 - npm test --cover
