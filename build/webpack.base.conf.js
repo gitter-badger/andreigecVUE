@@ -1,10 +1,10 @@
 var path = require('path')
-var webpack = require('webpack')
+require('webpack')
 
 module.exports = {
   entry: {
     app: './src/main.js',
-    vendor: [ "jquery","bootstrap-loader","bootstrap-sass","babel-polyfill", "underscore-node","firebase","vue","vuex","vue-router","vue-strap"],
+    vendor: [ 'jquery', 'bootstrap-loader', 'bootstrap-sass', 'babel-polyfill', 'underscore-node', 'firebase', 'vue', 'vuex', 'vue-router', 'vue-strap']
   },
   output: {
     path: path.resolve(__dirname, '../dist/static'),
@@ -12,7 +12,7 @@ module.exports = {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.vue','.spec.js'],
+    extensions: ['', '.js', '.vue', '.spec.js'],
     alias: {
       'src': path.resolve(__dirname, '../src'),
       'test': path.resolve(__dirname, '../test'),
@@ -24,11 +24,11 @@ module.exports = {
   },
   module: {
     loaders: [
-    { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
-      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
+    { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
+      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
 
       {
         test: /\.vue$/,
@@ -60,5 +60,5 @@ module.exports = {
   },
   eslint: {
     formatter: require('eslint-friendly-formatter')
- }  
+ }
   }
