@@ -28,7 +28,7 @@ config.vue.loaders = {
   less: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'less'])),
   sass: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'sass'])),
   stylus: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'stylus']))
-}
+} 
 
 config.plugins = (config.plugins || []).concat([
   // http://vuejs.github.io/vue-loader/workflow/production.html
@@ -42,6 +42,7 @@ config.plugins = (config.plugins || []).concat([
       warnings: false
     }
   }),
+  new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
   new webpack.optimize.OccurenceOrderPlugin(),
   // extract css into its own file
   new ExtractTextPlugin('[name].[contenthash].css'),
