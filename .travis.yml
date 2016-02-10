@@ -25,7 +25,7 @@ deploy:
   bucket: andreigec.net
   endpoint: s3-ap-southeast-2.amazonaws.com/andreigec.net
   acl: bucket_owner_full_control
-  skip_cleanup: true
+  skip_cleanup: false
   region: ap-southeast-2
   local-dir: dist
   detect_encoding: true
