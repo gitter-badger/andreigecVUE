@@ -35,6 +35,10 @@ module.exports = {
         loader: 'vue'
       },
       {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass']
+      },
+      {
         test: /\.js$/,
         loader: 'babel!eslint',
         exclude: /node_modules/

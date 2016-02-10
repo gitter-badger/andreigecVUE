@@ -1,11 +1,11 @@
 <script>
 	var store = require('../store.js')
-	var homecarousel = require('../components/home-carousel')
+	var titlepreviewsection = require('../components/title-preview-section')
 
 	module.exports = {
 
 		components: {
-			'home-carousel': homecarousel
+			'title-preview-section': titlepreviewsection
 		},
 
 		computed: {
@@ -25,10 +25,11 @@
 
 <template>
 
-<home-carousel name="Popular Titles" v-bind:items="PopularTitles"></home-carousel>
 
-<home-carousel name="New Titles" v-bind:items="NewTitles"></home-carousel>
+<title-preview-section name="Popular Titles" v-bind:items="PopularTitles"></title-preview-section>
 
-<home-carousel name="Featured Titles" v-bind:items="FeaturedTitles"></home-carousel>
-	
+<title-preview-section name="New Titles" v-bind:items="NewTitles"></title-preview-section>
+
+<title-preview-section name="Featured Titles" v-bind:items="FeaturedTitles"></title-preview-section>
+
 </template>

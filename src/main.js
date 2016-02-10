@@ -1,10 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+var Vue = require('vue')
+var VueRouter = require('vue-router')
 import { configRouter } from './route-config'
 require('babel-polyfill')
-var $ = require('jquery')
-window.jQuery = $
-window.$ = $
 require('bootstrap-loader')
 var store = require('./store')
 

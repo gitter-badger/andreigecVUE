@@ -13,6 +13,6 @@ export function configRouter (router) {
     // not found handler
     '*': {
     	component: require('./components/not-found.vue')
-    }    
+    }
 })
 }
