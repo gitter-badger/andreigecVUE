@@ -1,6 +1,7 @@
 language: node_js
 node_js:
 - 5.1.0
+before_install:
 install:
 - npm config set loglevel=warn&&npm config set loglevel=warn
 - git config core.autocrlf false
@@ -10,7 +11,6 @@ cache:
   - node_modules
 script:
 - cd /home/travis/build/andreigec/andreigecVUE
-- ls
 - npm test --cover
 before_deploy:
 - cd /home/travis/build/andreigec/andreigecVUE
