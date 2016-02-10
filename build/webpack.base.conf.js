@@ -12,11 +12,11 @@ module.exports = {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
+    extensions: ['', '.js', '.vue','.spec.js'],
     alias: {
       'src': path.resolve(__dirname, '../src'),
       'test': path.resolve(__dirname, '../test'),
-
+      'build': path.resolve(__dirname, '../build')
     }
   },
   resolveLoader: {
