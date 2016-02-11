@@ -7,7 +7,7 @@ export function configRouter (router) {
 		'/': {
 			component: Home
 		},
-		'*/Titles/Details/:titleName': {
+		'/Titles/Details/:titleName': {
           component: TitleDetails
       },
       '/NavySeal': {

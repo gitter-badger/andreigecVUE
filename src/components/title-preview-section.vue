@@ -2,7 +2,7 @@
 
 .section-text {
     font-size: 20px;
-    text-align:center;
+    text-align: center;
 }
 
 </style>
@@ -10,13 +10,14 @@
 <template>
 
 <div class='section-text'>
-  <vs-icon name='heart'></vs-icon>  {{name}}
+    <vs-icon name='heart'></vs-icon> {{name}}
 </div>
 <titlepreview v-for="title in items" v-bind:item="title"></titlepreview>
 
 </template>
 
 <script>
+
 //var icons = require('vuestrap-icons/src/components/icons')
 var icons = ''
 var titlepreview = require('./title-preview')

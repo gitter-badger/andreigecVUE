@@ -24,7 +24,7 @@ const state = {
 
 const actions = {
 	GetAllData: GetAllData,
-	GetDetails: ({dispatch, state }, titleName) => { 
+	GetDetails: ({dispatch, state }, titleName) => {
 var t = _.where(state.TitlesList, {Name: titleName})
 return t[0]
 }
@@ -46,7 +46,8 @@ function GetAllData () {
 }
 
 function SetData (item) {
-	item.HeadImage = item.Images != null ? item.Images[0].URL : img
+	item.HeadImage = (item.Images != null && item.Images.length >= 1) ? item.Images[0].URL : img
+	item.Images = (item.Images != null && item.Images.length > 1) ? item.Images.slice(1) : null
 	var td = _.truncate(item.Description, 100, '...')
 	item.HeadDescription = item.Description != null ? td : ''
 	item.Link = '/Titles/Details/' + item.Name
@@ -56,7 +57,7 @@ function SetData (item) {
 //#region popular
 function setPopularAppData (data) {
 	data.forEach (function (s) {
-		SetData(s)		
+		SetData(s)
 		state.PopularTitles.push(s)
 	})
 }
@@ -79,7 +80,7 @@ function GetPopularData () {
 //#region featured
 function setFeaturedAppData (data) {
 	data.forEach (function (s) {
-		SetData(s)		
+		SetData(s)
 		state.FeaturedTitles.push(s)
 	})
 }
@@ -102,7 +103,7 @@ function GetFeaturedData () {
 //#region new
 function setNewAppData (data) {
 	data.forEach (function (s) {
-		SetData(s)		
+		SetData(s)
 		state.NewTitles.push(s)
 	})
 }
@@ -144,4 +145,3 @@ function GetListData () {
 	}
 	//#endregion list
 }
-
