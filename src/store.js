@@ -1,9 +1,4 @@
 var _ = require('underscore-node')
-_.truncate = function (string, length, truncation) {
-	length = length || 30
-	truncation = _.isUndefined(truncation) ? '...' : truncation
-	return string.length > length ? string.slice(0, length - truncation.length) + truncation : String(string)
-}
 
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -48,8 +43,6 @@ function GetAllData () {
 function SetData (item) {
 	item.HeadImage = (item.Images != null && item.Images.length >= 1) ? item.Images[0].URL : img
 	item.Images = (item.Images != null && item.Images.length > 1) ? item.Images.slice(1) : null
-	var td = _.truncate(item.Description, 100, '...')
-	item.HeadDescription = item.Description != null ? td : ''
 	item.Link = '/Titles/Details/' + item.Name
 }
 

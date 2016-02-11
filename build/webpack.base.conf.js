@@ -4,7 +4,8 @@ require('webpack')
 module.exports = {
   entry: {
     app: './src/main.js',
-    vendor: [ 'jquery', 'bootstrap-loader', 'bootstrap-sass', 'babel-polyfill', 'underscore-node', 'firebase', 'vue', 'vuex', 'vue-router', 'vue-strap']
+    vendor: [ 'jquery', 'bootstrap-loader', 'bootstrap-sass', 'babel-polyfill', 'underscore-node', 'firebase', 
+    'vue', 'vuex', 'vue-router', 'vue-strap', 'vue-mdl', 'material-design-lite']
   },
   output: {
     path: path.resolve(__dirname, '../dist/static'),
@@ -38,10 +39,15 @@ module.exports = {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass']
       },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
       {
         test: /\.js$/,
         loader: 'babel!eslint',
         exclude: /node_modules/
+      },
+       {
+        test: /\.jsx$/,
+        loaders: ['babel-loader']
       },
       {
         test: /\.json$/,
