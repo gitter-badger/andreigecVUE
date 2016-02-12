@@ -1,10 +1,7 @@
 <style lang='sass' scoped>
 
 .section{
-  .header-text {
-      font-size: 20px;
-      text-align: center;
-  }
+
 
 overflow:hidden;
 
@@ -16,7 +13,8 @@ overflow:hidden;
 <template>
 
 <div class='section'>
-<div class='header-text'>{{name}}</div>
+<slot name='header-text'></slot>
+
 <titlepreview v-for="title in items" v-bind:item="title"></titlepreview>
 
 </div>
@@ -37,8 +35,7 @@ module.exports = {
             type: Array,
             required: true
 
-        },
-        name: String
+        }
     },
     components: {
         'titlepreview': titlepreview,

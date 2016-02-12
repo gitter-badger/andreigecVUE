@@ -1,28 +1,27 @@
 <style lang='sass' scoped>
-$gray : rgb(80,80,80);
+
+$gray: rgb(80, 80, 80);
 .item {
     color: black;
     width: 400px;
-    height: 300px;
+    height: 290px;
     position: relative;
     // margin-left: auto;
     // margin-right: auto;
-
     // margin-bottom: 50px;
-    float:left;
+    float: left;
     margin: 15px 15px 15px 15px;
-
-    .slot{
-      position: relative;
+    .slot {
+        position: relative;
     }
     .text {
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 1rem;
-
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 1rem;
         &.caption {
-          padding:5px;
-          width: 90%;
-          color: $gray;
+            padding: 5px;
+            width: 90%;
+            color: $gray;
+            min-height: 50px;
         }
         &.title {
             font-size: 36px;
@@ -32,19 +31,25 @@ $gray : rgb(80,80,80);
             bottom: 0;
             margin: 0 0 0 5px;
         }
-
-        &.view-title{
-          font-size: 24px;
-          font-weight: 500;
-          color: #009688
+        &.view-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #009688;
         }
     }
-
-    .action-box{
-
-      border-top: solid 1px rgb(180,180,180);
+    .action-box {
+        border-top: solid 1px rgb(180, 180, 180);
+        height: 35px;
+        bottom: 0;
+        position: absolute;
+        .material-icons {
+            top: -2px;
+            position: relative;
+        }
+        > button {
+            height: 100%;
+        }
     }
-
     .grayscale {
         filter: grayscale(100%);
     }
@@ -54,7 +59,7 @@ $gray : rgb(80,80,80);
 
 <template>
 
-<mdl-card class="item" actions="actions" actions-text="Get started" >
+<mdl-card class="item" actions="actions" actions-text="Get started">
 
     <div slot="title" class='slot' v-bind:style='item.HeadImage | generateImageStyle'>
         <h2 class='text title'>{{item.Name}}</h2>
@@ -63,22 +68,15 @@ $gray : rgb(80,80,80);
     <div slot="supporting-text" class='text caption' v-text='item.Description | truncate 100 '>
     </div>
 
-    <div slot="media">
-media
-    </div>
 
     <div slot="actions" class='action-box'>
-<mdl-button colored v-mdl-ripple-effect >
-  <mdl-button icon>
-  <i class="material-icons">star</i>
-</mdl-button>
-
-  <div class='text view-title'>
-
-      View Title</div></mdl-button>
+        <a v-link="{ path: '/Titles/Details/' + item.Name }">
+            <mdl-button colored v-mdl-ripple-effect>
+                <div class='text view-title'>
+                    <i class="material-icons">info</i></div>
+            </mdl-button>
+        </a>
     </div>
-
-
 
 </mdl-card>
 
@@ -96,18 +94,22 @@ var _ = require('underscore-node')
 module.exports = {
 
     filters: {
-            generateImageStyle: function(url) {
-              return { height: cardHeight, 'background-size': 'cover', 'background-image': 'url(' + url + ')' }
-            },
-            truncate: function(str, length, truncation) {
-                 length = length || 30
-                 truncation = _.isUndefined(truncation) ? '...' : truncation
-                 return str.length > length ? str.slice(0, length - truncation.length) + truncation : String(str)
+        generateImageStyle: function(url) {
+            return {
+                height: cardHeight,
+                'background-size': 'cover',
+                'background-image': 'url(' + url + ')'
             }
+        },
+        truncate: function(str, length, truncation) {
+            length = length || 30
+            truncation = _.isUndefined(truncation) ? '...' : truncation
+            return str.length > length ? str.slice(0, length - truncation.length) + truncation : String(str)
+        }
     },
 
     data: {
-      cardHeight: cardHeight
+        cardHeight: cardHeight
     },
 
     props: {
@@ -122,7 +124,7 @@ module.exports = {
         'mdl-button': button
     },
     directives: {
-      'mdl-ripple-effect': ripple
+        'mdl-ripple-effect': ripple
     }
 }
 
