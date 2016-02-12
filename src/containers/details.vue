@@ -10,11 +10,6 @@
     text-align: center;
 }
 
-.not-active {
-    pointer-events: none;
-    cursor: default;
-}
-
 .headimage {
     width: 100%;
     height: 400px;
