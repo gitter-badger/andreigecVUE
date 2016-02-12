@@ -1,18 +1,25 @@
 <style lang='sass' scoped>
 
-.section-text {
-    font-size: 20px;
-    text-align: center;
+.section{
+  .header-text {
+      font-size: 20px;
+      text-align: center;
+  }
+
+overflow:hidden;
+
 }
+
 
 </style>
 
 <template>
 
-<div class='section-text'>
-</div>
+<div class='section'>
+<div class='header-text'>{{name}}</div>
 <titlepreview v-for="title in items" v-bind:item="title"></titlepreview>
 
+</div>
 </template>
 
 <script>

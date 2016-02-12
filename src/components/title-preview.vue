@@ -1,35 +1,52 @@
 <style lang='sass' scoped>
-
+$gray : rgb(80,80,80);
 .item {
-    color:black;
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    color: black;
+    width: 400px;
+    height: 300px;
     position: relative;
+    // margin-left: auto;
+    // margin-right: auto;
+
+    // margin-bottom: 50px;
+    float:left;
+    margin: 15px 15px 15px 15px;
+
+    .slot{
+      position: relative;
+    }
     .text {
-        z-index: 1;
-        position: absolute;
-        color: white;
-        width: 90%;
-        margin-left: 5%;
-        background-color: rgba(0, 0, 0, .2);
-        left: 0 !important;
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 1rem;
+
         &.caption {
-            height: 50px;
-            left: 0 !important;
-            bottom: 10px;
+          padding:5px;
+          width: 90%;
+          color: $gray;
         }
         &.title {
-            height: 30px;
-            text-align: center;
-            top: 20px;
-            font-size: 21px;
-            color: lightblue;
-            display: flex;
+            font-size: 36px;
+            color: white;
+            text-shadow: 1px 1px 10px black;
+            position: absolute;
+            bottom: 0;
+            margin: 0 0 0 5px;
+        }
+
+        &.view-title{
+          font-size: 24px;
+          font-weight: 500;
+          color: #009688
         }
     }
-    .item-image{
-filter: grayscale(100%);
+
+    .action-box{
+
+      border-top: solid 1px rgb(180,180,180);
+    }
+
+    .grayscale {
+        filter: grayscale(100%);
     }
 }
 
@@ -37,41 +54,61 @@ filter: grayscale(100%);
 
 <template>
 
-<mdl-card class="item"  supporting-text="supportingText" actions="actions" actions-text="Get started" :media='item.HeadImage'>
+<mdl-card class="item" actions="actions" actions-text="Get started" >
 
-<div slot="title" class="mdl-card__title">
-      <h2 class="title">Title from slot</h2>
+    <div slot="title" class='slot' v-bind:style='item.HeadImage | generateImageStyle'>
+        <h2 class='text title'>{{item.Name}}</h2>
+    </div>
+
+    <div slot="supporting-text" class='text caption' v-text='item.Description | truncate 100 '>
+    </div>
+
+    <div slot="media">
+media
+    </div>
+
+    <div slot="actions" class='action-box'>
+<mdl-button colored v-mdl-ripple-effect >
+  <mdl-button icon>
+  <i class="material-icons">star</i>
+</mdl-button>
+
+  <div class='text view-title'>
+
+      View Title</div></mdl-button>
     </div>
 
 
-     <!--    <div class='item'>
-            <div class="text title">
-                {{item.Name}}
-            </div>
-            <img v-bind:src="item.HeadImage" class='item-image' />
-            <div class="text caption">
-                {{item.HeadDescription}}
-            </div>
-        </div> -->
+
 </mdl-card>
 
 </template>
 
 <script>
+
+var cardHeight = '200px'
 var vmdl = require('vue-mdl')
 var card = vmdl.components['mdl-card']
+var button = vmdl.components['mdl-button']
+var ripple = vmdl.directives['mdl-ripple-effect']
 var _ = require('underscore-node')
+
 module.exports = {
 
-filters: function () {
-    return {
-      truncate: function (string, length, truncation) {
-    length = length || 30
-    truncation = _.isUndefined(truncation) ? '...' : truncation
-    return string.length > length ? string.slice(0, length - truncation.length) + truncation : String(string)
-}
-    }
-},
+    filters: {
+            generateImageStyle: function(url) {
+              return { height: cardHeight, 'background-size': 'cover', 'background-image': 'url(' + url + ')' }
+            },
+            truncate: function(str, length, truncation) {
+                 length = length || 30
+                 truncation = _.isUndefined(truncation) ? '...' : truncation
+                 return str.length > length ? str.slice(0, length - truncation.length) + truncation : String(str)
+            }
+    },
+
+    data: {
+      cardHeight: cardHeight
+    },
 
     props: {
         item: {
@@ -81,7 +118,11 @@ filters: function () {
     },
 
     components: {
-        'mdl-card': card
+        'mdl-card': card,
+        'mdl-button': button
+    },
+    directives: {
+      'mdl-ripple-effect': ripple
     }
 }
 
