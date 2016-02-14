@@ -28,7 +28,6 @@ a {
 
 </div>
 
-<bottom-bar></bottom-bar>	
 	</body>
 
 
@@ -40,13 +39,11 @@ a {
 
 var routerView = require('vue-router')
 var topbar = require('./components/topbar')
-var bottombar = require('./components/bottombar')
 
 export default {
     components: {
         'router-view': routerView,
-        'top-bar': topbar,
-        'bottom-bar': bottombar
+        'top-bar': topbar
     }
 }
 
