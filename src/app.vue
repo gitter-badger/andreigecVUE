@@ -6,8 +6,12 @@
 
 a {
     &.v-link-active {
-    @extend .not-active;
+      @extend .not-active;
+    color: default;
+    &:hover {
+        color: default;
     }
+}
 }
 
 </style>
@@ -20,7 +24,7 @@ a {
 		  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	</head>
 	<body style='background-color: rgb(190,210,240)'>
-	<top-bar></top-bar>		
+	<top-bar></top-bar>
 
 <div id="content" >
 	<router-view>

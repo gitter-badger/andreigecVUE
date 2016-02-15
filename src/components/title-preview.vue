@@ -24,12 +24,13 @@ $gray: rgb(80, 80, 80);
             min-height: 50px;
         }
         &.title {
-            font-size: 36px;
+            font-size: 35px;
             color: white;
             text-shadow: 1px 1px 10px black;
             position: absolute;
             bottom: 0;
             margin: 0 0 0 5px;
+            height:70px;
         }
         &.view-title {
             font-size: 20px;
@@ -62,12 +63,14 @@ $gray: rgb(80, 80, 80);
 <mdl-card class="item" actions="actions" actions-text="Get started">
 
     <div slot="title" class='slot' v-bind:style='item.HeadImage | generateImageStyle'>
-        <h2 class='text title'>{{item.Name}}</h2>
+        <a v-link="{ path: '/Titles/Details/' + item.Name }">
+            <mdl-button colored v-mdl-ripple-effect class='text title'>
+            {{item.Name}}</div>
+        </a>
     </div>
 
     <div slot="supporting-text" class='text caption' v-text='item.Description | truncate 100 '>
     </div>
-
 
     <div slot="actions" class='action-box'>
         <a v-link="{ path: '/Titles/Details/' + item.Name }">
@@ -77,7 +80,6 @@ $gray: rgb(80, 80, 80);
             </mdl-button>
         </a>
     </div>
-
 </mdl-card>
 
 </template>

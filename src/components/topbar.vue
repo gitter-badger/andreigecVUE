@@ -1,39 +1,37 @@
 <style lang='sass' scoped>
 #bar{
-    position: fixed;
+	position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+    background-color: rgb(103,58,183);
     z-index: 2;
-    height:20px;
-    min-height:0;
+    height:50px;
 }
-
 .title{
-    font-size:3rem;
+    font-size:2rem;
+    color:white;
 }
 </style>
 
 <template>
-<mdl-card id="bar">
-  <div slot="title">
-<a class='title'  v-link="{ path: '/', exact: true}">
-                andreigec.net
+  <div id='bar'>
+    <a class='title'  v-link="{ path: '/', exact: true}">
+    <mdl-button colored v-mdl-ripple-effect>
+        <div class='title'>TESTRESAS.TES</div>
+    </mdl-button>
                 </a>
     </div>
-
-
-</mdl-card>
 
 </template>
 
 <script>
 var vmdl = require('vue-mdl')
-var card = vmdl.components['mdl-card']
+var button = vmdl.components['mdl-button']
 module.exports = {
 
      components: {
-        'mdl-card': card
+    'mdl-button': button
     }
 
 }
