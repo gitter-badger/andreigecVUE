@@ -76,14 +76,14 @@ $cardWidthPad: 50;
 
 <mdl-card class="title-preview" actions="actions" actions-text="Get started" v-bind:class='marginedClass' v-bind:style='marginstyles'>
 
-    <div slot="title" class='slot' v-bind:style='item.HeadImage | generateImageStyle'>
+    <div slot="title" class='slot title-image' v-bind:style='item.HeadImage | generateImageStyle'>
         <a v-link="{ path: '/Titles/Details/' + item.Name }">
             <mdl-button colored v-mdl-ripple-effect class='text title'>
                 {{item.Name}}</div>
     </a>
     </div>
-
-    <div slot="supporting-text" class='text caption' v-text='item.Description | truncate 100 '>
+    
+    <div slot="supporting-text" class='text caption' v-text='item.DescriptionText | truncate 100 '>
     </div>
 
     <div slot="actions" class='action-box'>
@@ -124,8 +124,8 @@ module.exports = {
         }
     },
 
-    data: {
-        cardHeight: cardHeight
+    data: function() {
+        return {cardHeight: cardHeight}
     },
 
     computed: {

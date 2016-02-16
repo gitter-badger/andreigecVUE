@@ -15,6 +15,12 @@ a {
     }
 }
 
+.fullBackgroundImage {
+    background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+}
+
 [v-cloak] {
     display: none;
 }
@@ -34,7 +40,7 @@ a {
 </head>
 
 <body>
-    <div id='body' v-bind:style='BodyBackground'>
+    <div id='body' class='fullBackgroundImage' style='background-image: url({{backgroundImage}});'>
 
         <top-bar></top-bar>
 
@@ -58,16 +64,9 @@ export default {
         'router-view': routerView,
         'top-bar': topbar
     },
-    computed: {
-        BodyBackground() {
-            return {
-                backgroundRepeat: 'no-repeat',
-                backgroundAttachment: 'fixed',
-                backgroundSize: 'cover',
-                'background-image': 'url(' + bg + ')'
-            }
+    data: function() {
+        return {backgroundImage: bg}
         }
-    }
 }
 
 </script>

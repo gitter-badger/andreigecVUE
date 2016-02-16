@@ -1,4 +1,5 @@
 var _ = require('underscore-node')
+var md = require('markdown').markdown
 
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -10,6 +11,8 @@ const state = {
 	baseURL: 'https://intense-inferno-4020.firebaseio.com/Backgrounder/Website/',
 	PopularTitles: [],
 	TitlesList: [],
+	TitlesListGames: [],
+	TitlesListApplications: [],
 	NewTitles: [],
 	FeaturedTitles: [],
 	newTodo:	'',
@@ -44,6 +47,20 @@ function SetData (item) {
 	item.HeadImage = (item.Images != null && item.Images.length >= 1) ? item.Images[0].URL : img
 	item.Images = (item.Images != null && item.Images.length > 1) ? item.Images.slice(1) : null
 	item.Link = '/Titles/Details/' + item.Name
+	
+	var i = _.find(md.parse(item.Description), function(v) {
+		if (v[0] === 'para' && v.length >= 2) {
+			return true
+		}
+		return false
+	})
+
+if (i != null) {
+	item.DescriptionText = i[1]
+}
+else {
+	item.DescriptionText = ''
+}
 }
 
 
@@ -121,6 +138,12 @@ function SetListData (data) {
 	for (var key in data) {
 		SetData(data[key])
 		state.TitlesList.push(data[key])
+		if (data[key].IsGame === true) {
+			state.TitlesListGames.push(data[key])
+		}
+		else {
+			state.TitlesListApplications.push(data[key])
+		}
 	}
 }
 

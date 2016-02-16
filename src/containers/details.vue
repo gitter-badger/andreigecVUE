@@ -15,9 +15,7 @@
   }
 
   .headimage {
-      width: 100%;
       height: 400px;
-      object-fit: contain;
   }
 }
 
@@ -42,16 +40,16 @@
 <div class='page'>
 
   <mdl-card class="details" actions="actions" actions-text="Get started" v-bind:class='marginedClass' v-bind:style='marginstyles'>
-    <div slot="title" class='slot' v-bind:style='titleDetails.HeadImage | generateImageStyle'>
+    <div slot="title" class='slot'>
 
       <a href='#' @click="showImageModal = true" v-bind:class="hasGallery? '' : 'not-active'">
-          <img v-bind:src="titleDetails.HeadImage" class='headimage' />
+          <img v-bind:src="titleDetails.HeadImage" class='headimage fullBackgroundImage' />
       </a>
           <h1>{{titleDetails.Name}}</h1>
     </div>
 
     <div slot="supporting-text" class='text caption'>
-      <p  v-text='titleDetails.Description'></p>
+      <p  v-text='titleDetails.DescriptionText'></p>
     </div>
 
     <div slot="actions" class='action-box'>

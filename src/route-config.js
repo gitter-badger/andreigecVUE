@@ -1,5 +1,6 @@
 var Home = require('./containers/home')
 var TitleDetails = require('./containers/details')
+var Browse = require('./containers/browse')
 var navyseal = require('./containers/navyseal')
 export function configRouter (router) {
 
@@ -9,6 +10,9 @@ export function configRouter (router) {
 		},
 		'/Titles/Details/:titleName': {
           component: TitleDetails
+      },
+      'Titles/Browse/:category': {
+        component: Browse
       },
       '/NavySeal': {
         component: navyseal
