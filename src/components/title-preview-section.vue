@@ -1,23 +1,39 @@
-<style lang='sass' scoped>
+<style lang='sass' scoped >
+$cardWidth: 400;
+$cardWidthPad: 50;
 
-.section{
+.section {
+    overflow: hidden;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: (($cardWidth + $cardWidthPad) * 3) + px;
 
+  @media screen  and (max-width: (($cardWidth + $cardWidthPad) * 2 ) + 'px') {
+    width: (($cardWidth + $cardWidthPad) ) + px;
+  }
 
-overflow:hidden;
+  @media screen and (min-width: (($cardWidth + $cardWidthPad) * 2 ) + 'px') and (max-width: (($cardWidth + $cardWidthPad) * 3 ) + 'px') {
+    width: (($cardWidth + $cardWidthPad) * 2) + px;
+  }
+
+  @media screen and (min-width: (($cardWidth + $cardWidthPad) * 3 ) + 'px') and (max-width: (($cardWidth + $cardWidthPad) * 4 ) + 'px') {
+    width: (($cardWidth + $cardWidthPad) * 3) + px;
+  }
 
 }
-
 
 </style>
 
 <template>
 
 <div class='section'>
-<slot name='header-text'></slot>
+    <slot name='header-text'></slot>
 
-<titlepreview v-for="title in items" v-bind:item="title"></titlepreview>
+    <titlepreview v-for="title in items" v-bind:item="title"></titlepreview>
 
 </div>
+
 </template>
 
 <script>

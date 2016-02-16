@@ -1,25 +1,22 @@
-<style lang='sass' scoped>
+<style lang='sass' scoped >
 
-
-.carousel-inner{
-  width:400px;
-  margin-left: auto;
-  margin-right: auto;
+.carousel-inner {
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
 }
-
 </style>
 
 <template>
 
+<div class='section'>
+    <slot name='header-text'></slot>
 
-  <div class='section'>
-  <slot name='header-text'></slot>
-
-<carousel class="popular-carousel" v-bind:interval='0' :indicators=false>
-    <slider v-for="title in items">
-      <titlepreview v-bind:item="title"></titlepreview>
-    </slider>
-</carousel>
+    <carousel class="popular-carousel" v-bind:interval='0' :indicators=false>
+        <slider v-for="title in items">
+            <titlepreview v-bind:item="title" margined></titlepreview>
+        </slider>
+    </carousel>
 </div>
 
 </template>
@@ -31,8 +28,16 @@ var carousel = require('vue-strap').carousel
 var slider = require('vue-strap').slider
 var vmdl = require('vue-mdl')
 var ripple = vmdl.directives['mdl-ripple-effect']
-//var store = require('../store.js')
-//var _ = require('underscore-node')
+    //var store = require('../store.js')
+    //var _ = require('underscore-node')
+var $ = require('jquery')
+$(function() {
+    $('.carousel').each(function() {
+        $(this).carousel({
+            interval: false
+        })
+    })
+})
 
 module.exports = {
 
@@ -51,7 +56,7 @@ module.exports = {
         'slider': slider
     },
     directives: {
-      'mdl-ripple-effect': ripple
+        'mdl-ripple-effect': ripple
     }
 }
 

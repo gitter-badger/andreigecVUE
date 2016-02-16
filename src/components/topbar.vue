@@ -16,8 +16,8 @@
 }
 
 .item {
-	font-size: 1.5rem;
-	  color: white;
+    font-size: 1.5rem;
+    color: white;
 }
 
 </style>
@@ -31,11 +31,11 @@
         </mdl-button>
     </a>
 
-		<a href='https://s3-ap-southeast-2.amazonaws.com/andreigec/CV/AndreiGecCV.doc' target="_blank">
-			<mdl-button colored v-mdl-ripple-effect>
-					<div class='item'>CV</div>
-			</mdl-button>
-		</a>
+    <a href='https://s3-ap-southeast-2.amazonaws.com/andreigec/CV/AndreiGecCV.doc' target="_blank">
+        <mdl-button colored v-mdl-ripple-effect>
+            <div class='item'>CV</div>
+        </mdl-button>
+    </a>
 </div>
 
 </template>
@@ -50,9 +50,9 @@ module.exports = {
     components: {
         'mdl-button': button
     },
-		directives: {
-				'mdl-ripple-effect': ripple
-		}
+    directives: {
+        'mdl-ripple-effect': ripple
+    }
 }
 
 </script>

@@ -1,16 +1,30 @@
 <style lang='sass' scoped>
 
 $gray: rgb(80, 80, 80);
+$cardWidth: 400;
+$cardWidthPad: 50;
 .title-preview {
     color: black;
-    width: 400px;
+    width: $cardWidth + px;
     height: 290px;
     position: relative;
-    // margin-left: auto;
-    // margin-right: auto;
-    // margin-bottom: 50px;
-    float: left;
-    margin: 15px 15px 15px 15px;
+    &.margined {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        float: none;
+    }
+    &.floatleft {
+      @media screen and (min-width: (($cardWidth + $cardWidthPad) * 2) + 'px') {
+        float: left;
+        margin: 15px;
+      }
+
+        @media screen and (max-width: (($cardWidth + $cardWidthPad) * 2) + 'px') {
+          @extend  .margined
+        }
+    }
     .slot {
         position: relative;
     }
@@ -30,7 +44,7 @@ $gray: rgb(80, 80, 80);
             position: absolute;
             bottom: 0;
             margin: 0 0 0 5px;
-            height:70px;
+            height: 70px;
         }
         &.view-title {
             font-size: 20px;
@@ -60,13 +74,13 @@ $gray: rgb(80, 80, 80);
 
 <template>
 
-<mdl-card class="title-preview" actions="actions" actions-text="Get started">
+<mdl-card class="title-preview" actions="actions" actions-text="Get started" v-bind:class='marginedClass' v-bind:style='marginstyles'>
 
     <div slot="title" class='slot' v-bind:style='item.HeadImage | generateImageStyle'>
         <a v-link="{ path: '/Titles/Details/' + item.Name }">
             <mdl-button colored v-mdl-ripple-effect class='text title'>
-            {{item.Name}}</div>
-        </a>
+                {{item.Name}}</div>
+    </a>
     </div>
 
     <div slot="supporting-text" class='text caption' v-text='item.Description | truncate 100 '>
@@ -114,11 +128,21 @@ module.exports = {
         cardHeight: cardHeight
     },
 
+    computed: {
+        marginedClass() {
+            return {
+                'margined': this.margined,
+                'floatleft': !this.margined
+            }
+        }
+    },
+
     props: {
         item: {
             type: Object,
             required: true
-        }
+        },
+        margined: Boolean
     },
 
     components: {

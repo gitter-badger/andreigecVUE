@@ -1,37 +1,38 @@
 <style lang='sass' scoped>
+
 .header-text {
-		font-size: 20px;
-		text-align: center;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    text-shadow: gray 1px 1px 1px;
 }
 
-.material-icons{
-	top: 4px;
+.material-icons {
+    top: 4px;
     position: relative;
 }
+
 </style>
 
 <template>
 
-	<home-carousel name="Featured Titles" v-bind:items="FeaturedTitles">
-		<div slot='header-text' class='header-text'>
-		<i class="material-icons">grade</i>
-			Featured Titles
-		</div>
-	</home-carousel>
-<!--
+<home-carousel name="Featured Titles" v-bind:items="FeaturedTitles">
+    <div slot='header-text' class='header-text'>
+        <i class="material-icons">grade</i> Featured Titles
+    </div>
+</home-carousel>
+
 <title-preview-section v-bind:items="PopularTitles">
-<div slot='header-text' class='header-text'>
-<i class="material-icons">favorite</i>
-	Popular Titles
-</div>
+    <div slot='header-text' class='header-text'>
+        <i class="material-icons">favorite</i> Popular Titles
+    </div>
 </title-preview-section>
 
 <title-preview-section v-bind:items="NewTitles">
-	<div slot='header-text' class='header-text'>
-	<i class="material-icons">date_range</i>
-		New Titles
-	</div>
-</title-preview-section> -->
+    <div slot='header-text' class='header-text'>
+        <i class="material-icons">date_range</i> New Titles
+    </div>
+</title-preview-section>
 
 </template>
 
@@ -47,10 +48,10 @@ module.exports = {
 
     components: {
         'title-preview-section': titlepreviewsection,
-				'home-carousel': hc
+        'home-carousel': hc
     },
 
-		directives: {
+    directives: {
         'mdl-ripple-effect': ripple
     },
 

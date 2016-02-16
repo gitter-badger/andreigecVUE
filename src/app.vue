@@ -19,10 +19,6 @@ a {
     display: none;
 }
 
-body {
-    background-color: rgb(190, 210, 240);
-}
-
 #content {
     margin-top: 50px;
 }
@@ -38,11 +34,14 @@ body {
 </head>
 
 <body>
-    <top-bar></top-bar>
+    <div id='body' v-bind:style='BodyBackground'>
 
-    <div id="content">
-        <router-view>
-        </router-view>
+        <top-bar></top-bar>
+
+        <div id="content">
+            <router-view>
+            </router-view>
+        </div>
     </div>
 </body>
 
@@ -52,11 +51,22 @@ body {
 
 var routerView = require('vue-router')
 var topbar = require('./components/topbar')
+var bg = require('./assets/bg.jpg')
 
 export default {
     components: {
         'router-view': routerView,
         'top-bar': topbar
+    },
+    computed: {
+        BodyBackground() {
+            return {
+                backgroundRepeat: 'no-repeat',
+                backgroundAttachment: 'fixed',
+                backgroundSize: 'cover',
+                'background-image': 'url(' + bg + ')'
+            }
+        }
     }
 }
 
