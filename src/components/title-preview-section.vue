@@ -27,6 +27,7 @@ var titlepreview = require('./title-preview')
 var vmdl = require('vue-mdl')
 var badge = vmdl.directives['mdl-badge']
 var button = vmdl.components['mdl-button']
+var ripple = vmdl.directives['mdl-ripple-effect']
 
 module.exports = {
 
@@ -34,7 +35,6 @@ module.exports = {
         items: {
             type: Array,
             required: true
-
         }
     },
     components: {
@@ -42,7 +42,8 @@ module.exports = {
         'mdl-button': button
     },
     directives: {
-        'mdl-badge': badge
+        'mdl-badge': badge,
+        'mdl-ripple-effect': ripple
     }
 }
 

@@ -60,7 +60,11 @@ config.plugins = (config.plugins || []).concat([
       // more options:
       // https://github.com/kangax/html-minifier#options-quick-reference
     }
-  })
+  }),
+  new webpack.ProvidePlugin({
+           $: "jquery",
+           jQuery: "jquery"
+       })
 ])
 
 module.exports = config

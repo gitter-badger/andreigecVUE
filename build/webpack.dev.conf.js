@@ -28,7 +28,11 @@ config.plugins = (config.plugins || []).concat([
     filename: 'index.html',
     template: 'src/index.html',
     inject: true
-  })
+  }),
+  new webpack.ProvidePlugin({
+           $: "jquery",
+           jQuery: "jquery"
+       })
 ])
 
 module.exports = config

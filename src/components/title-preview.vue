@@ -1,7 +1,7 @@
 <style lang='sass' scoped>
 
 $gray: rgb(80, 80, 80);
-.item {
+.title-preview {
     color: black;
     width: 400px;
     height: 290px;
@@ -60,7 +60,7 @@ $gray: rgb(80, 80, 80);
 
 <template>
 
-<mdl-card class="item" actions="actions" actions-text="Get started">
+<mdl-card class="title-preview" actions="actions" actions-text="Get started">
 
     <div slot="title" class='slot' v-bind:style='item.HeadImage | generateImageStyle'>
         <a v-link="{ path: '/Titles/Details/' + item.Name }">

@@ -1,63 +1,36 @@
-<style>
+<style lang='sass' scoped>
 
-.popular-carousel {}
 
-.carousel--item {
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-}
-
-.carousel-text {
-    position: absolute;
-    color: white;
-    width: 90%;
-    margin-left: 5%;
-    background-color: rgba(0, 0, 0, .2);
-    left: 0 !important;
-}
-
-.carousel-caption {
-    height: 80px;
-    left: 0 !important;
-}
-
-.carousel-title {
-    height: 30px;
-    text-align: center;
-    top: 20px;
-    font-size: 21px;
-    color: lightblue;
+.carousel-inner{
+  width:400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 </style>
 
 <template>
 
-<carousel class="popular-carousel" :interval="0" :indicators=false>
+
+  <div class='section'>
+  <slot name='header-text'></slot>
+
+<carousel class="popular-carousel" v-bind:interval='0' :indicators=false>
     <slider v-for="title in items">
-        <a v-bind:href='title.Link'>
-            <div class='carousel--item'>
-                <div class="carousel-text carousel-title">
-                    {{title.Name}}
-                </div>
-                <img v-bind:src="title.HeadImage" class='carousel--item-image' />
-                <div class="carousel-text carousel-caption">
-                    {{title.HeadDescription}}
-                </div>
-            </div>
-        </a>
+      <titlepreview v-bind:item="title"></titlepreview>
     </slider>
 </carousel>
+</div>
 
 </template>
 
 <script>
 
+var titlepreview = require('./title-preview')
 var carousel = require('vue-strap').carousel
 var slider = require('vue-strap').slider
-
+var vmdl = require('vue-mdl')
+var ripple = vmdl.directives['mdl-ripple-effect']
 //var store = require('../store.js')
 //var _ = require('underscore-node')
 
@@ -73,8 +46,12 @@ module.exports = {
     },
 
     components: {
+        'titlepreview': titlepreview,
         'carousel': carousel,
         'slider': slider
+    },
+    directives: {
+      'mdl-ripple-effect': ripple
     }
 }
 
