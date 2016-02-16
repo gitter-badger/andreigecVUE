@@ -20,7 +20,7 @@ a {
 }
 
 #content {
-    margin-top: 50px;
+    padding-top: 80px;
 }
 
 </style>
