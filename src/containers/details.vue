@@ -39,7 +39,7 @@
 
 <div class='page'>
 
-  <mdl-card class="details" actions="actions" actions-text="Get started" v-bind:class='marginedClass' v-bind:style='marginstyles'>
+  <mdl-card class="details" actions="actions">
     <div slot="title" class='slot'>
 
       <a href='#' @click="showImageModal = true" v-bind:class="hasGallery? '' : 'not-active'">
@@ -52,12 +52,7 @@
       <p  v-text='titleDetails.DescriptionText'></p>
     </div>
 
-    <div slot="actions" class='action-box'>
-
-    </div>
-
   </mdl-card>
-
 
     details
 </div>

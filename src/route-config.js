@@ -22,4 +22,9 @@ export function configRouter (router) {
     	component: require('./components/not-found.vue')
     }
 })
+router.beforeEach(function (transition) {
+  window.scrollTo(0, 0)
+  transition.next()
+})
+
 }

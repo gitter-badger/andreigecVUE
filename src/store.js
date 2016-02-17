@@ -47,7 +47,7 @@ function SetData (item) {
 	item.HeadImage = (item.Images != null && item.Images.length >= 1) ? item.Images[0].URL : img
 	item.Images = (item.Images != null && item.Images.length > 1) ? item.Images.slice(1) : null
 	item.Link = '/Titles/Details/' + item.Name
-	
+
 	var i = _.find(md.parse(item.Description), function(v) {
 		if (v[0] === 'para' && v.length >= 2) {
 			return true
@@ -72,18 +72,40 @@ function setPopularAppData (data) {
 	})
 }
 
+//false means add a firebase callback and add data to cache later
+function LocalStorageUsed (key, callback) {
+	var timeoutkey = key + '_timeout'
+	var timeout = localStorage.getItem(timeoutkey)
+	var item = JSON.parse(localStorage.getItem(key))
+if (!item) {
+	return false
+}
+
+	if (timeout)	{
+var now = new Date().getTime()
+var diff = now - timeout
+var diffseconds = 30 * 60 * 1000
+//expire
+if (diff > diffseconds) {
+		localStorage.setItem(timeoutkey, null)
+	return false
+}
+	}
+
+		localStorage.setItem(timeoutkey, new Date().getTime())
+		callback(item)
+		return true
+	}
+
 function GetPopularData () {
 	var key = 'popular'
-	if (localStorage.getItem(key)) {
-		setPopularAppData(JSON.parse(localStorage.getItem(key)))
-	}
-	else {
+	if (!LocalStorageUsed(key, setPopularAppData)) {
 		var fireb = new Firebase(state.baseURL + 'Titles/Popular')
 		fireb.on('value', function (snapshot) {
 			setPopularAppData(snapshot.val())
 			localStorage.setItem(key, JSON.stringify(state.PopularTitles))
 		})
-	}
+}
 }
 //#endregion popular
 
@@ -97,11 +119,8 @@ function setFeaturedAppData (data) {
 
 function GetFeaturedData () {
 	var key = 'new'
-	if (localStorage.getItem(key)) {
-		setFeaturedAppData(JSON.parse(localStorage.getItem(key)))
-	}
-	else {
-		var fireb = new Firebase(state.baseURL + 'Titles/New')
+	if (!LocalStorageUsed(key, setFeaturedAppData)) {
+		var fireb = new Firebase(state.baseURL + 'Titles/Featured')
 		fireb.on('value', function (snapshot) {
 			setFeaturedAppData(snapshot.val())
 			localStorage.setItem(key, JSON.stringify(state.FeaturedTitles))
@@ -120,10 +139,7 @@ function setNewAppData (data) {
 
 function GetNewData () {
 	var key = 'new'
-	if (localStorage.getItem(key)) {
-		setNewAppData(JSON.parse(localStorage.getItem(key)))
-	}
-	else {
+	if (!LocalStorageUsed(key, setNewAppData)) {
 		var fireb = new Firebase(state.baseURL + 'Titles/New')
 		fireb.on('value', function (snapshot) {
 			setNewAppData(snapshot.val())

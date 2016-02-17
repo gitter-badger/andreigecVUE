@@ -12,11 +12,14 @@
 <div class='section'>
     <slot name='header-text'></slot>
 
-    <carousel class="popular-carousel" v-bind:interval='0' :indicators=false>
+    <carousel class="popular-carousel" v-bind:interval='0' :indicators=false v-if='items.length > 1'>
         <slider v-for="title in items">
             <titlepreview v-bind:item="title" margined></titlepreview>
         </slider>
     </carousel>
+
+        <titlepreview v-bind:item="items[0]" margined v-if='items.length==1'></titlepreview>
+
 </div>
 
 </template>
@@ -45,7 +48,6 @@ module.exports = {
         items: {
             type: Array,
             required: true
-
         },
         name: String
     },

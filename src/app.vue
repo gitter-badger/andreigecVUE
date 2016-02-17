@@ -40,7 +40,8 @@ a {
 </head>
 
 <body>
-    <div id='body' class='fullBackgroundImage' style='background-image: url({{backgroundImage}});'>
+    <div id='body' class='fullBackgroundImage'
+    v-bind:style='backgroundImage'>
 
         <top-bar></top-bar>
 
@@ -58,14 +59,15 @@ a {
 var routerView = require('vue-router')
 var topbar = require('./components/topbar')
 var bg = require('./assets/bg.jpg')
-
+require('material-design-lite/material.css')
+require('material-design-lite/material.js')
 export default {
     components: {
         'router-view': routerView,
         'top-bar': topbar
     },
     data: function() {
-        return {backgroundImage: bg}
+        return {backgroundImage: 'url(' + bg + ');'}
         }
 }
 

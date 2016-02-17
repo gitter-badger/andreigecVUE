@@ -20,7 +20,6 @@ $cardWidthPad: 50;
   @media screen and (min-width: (($cardWidth + $cardWidthPad) * 3 ) + 'px') and (max-width: (($cardWidth + $cardWidthPad) * 4 ) + 'px') {
     width: (($cardWidth + $cardWidthPad) * 3) + px;
   }
-
 }
 
 </style>

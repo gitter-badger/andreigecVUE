@@ -74,7 +74,9 @@ $cardWidthPad: 50;
 
 <template>
 
-<mdl-card class="title-preview" actions="actions" actions-text="Get started" v-bind:class='marginedClass' v-bind:style='marginstyles'>
+<mdl-card class="title-preview" actions="actions" actions-text="Get started"
+v-bind:class='marginedClass' v-bind:style='marginstyles'
+animate-on-scroll>
 
     <div slot="title" class='slot title-image' v-bind:style='item.HeadImage | generateImageStyle'>
         <a v-link="{ path: '/Titles/Details/' + item.Name }">
@@ -82,7 +84,7 @@ $cardWidthPad: 50;
                 {{item.Name}}</div>
     </a>
     </div>
-    
+
     <div slot="supporting-text" class='text caption' v-text='item.DescriptionText | truncate 100 '>
     </div>
 
@@ -95,7 +97,7 @@ $cardWidthPad: 50;
         </a>
     </div>
 </mdl-card>
-
+</div>
 </template>
 
 <script>
@@ -106,6 +108,7 @@ var card = vmdl.components['mdl-card']
 var button = vmdl.components['mdl-button']
 var ripple = vmdl.directives['mdl-ripple-effect']
 var _ = require('underscore-node')
+var aos = require('../directives/animateonscroll')
 
 module.exports = {
 
@@ -150,7 +153,8 @@ module.exports = {
         'mdl-button': button
     },
     directives: {
-        'mdl-ripple-effect': ripple
+        'mdl-ripple-effect': ripple,
+        'animate-on-scroll': aos
     }
 }
 
