@@ -16,13 +16,12 @@ $cardWidthPad: 50;
         float: none;
     }
     &.floatleft {
-      @media screen and (min-width: (($cardWidth + $cardWidthPad) * 2) + 'px') {
-        float: left;
-        margin: 15px;
-      }
-
+        @media screen and (min-width: (($cardWidth + $cardWidthPad) * 2) + 'px') {
+            float: left;
+            margin: 15px;
+        }
         @media screen and (max-width: (($cardWidth + $cardWidthPad) * 2) + 'px') {
-          @extend  .margined
+            @extend .margined
         }
     }
     .slot {
@@ -76,7 +75,7 @@ $cardWidthPad: 50;
 
 <mdl-card class="title-preview" actions="actions" actions-text="Get started"
 v-bind:class='marginedClass' v-bind:style='marginstyles'
-animate-on-scroll>
+v-animate-on-scroll="'test'", data-animation="fadeInDown">
 
     <div slot="title" class='slot title-image' v-bind:style='item.HeadImage | generateImageStyle'>
         <a v-link="{ path: '/Titles/Details/' + item.Name }">
@@ -98,6 +97,7 @@ animate-on-scroll>
     </div>
 </mdl-card>
 </div>
+
 </template>
 
 <script>
@@ -108,7 +108,6 @@ var card = vmdl.components['mdl-card']
 var button = vmdl.components['mdl-button']
 var ripple = vmdl.directives['mdl-ripple-effect']
 var _ = require('underscore-node')
-var aos = require('../directives/animateonscroll')
 
 module.exports = {
 
@@ -128,7 +127,9 @@ module.exports = {
     },
 
     data: function() {
-        return {cardHeight: cardHeight}
+        return {
+            cardHeight: cardHeight
+        }
     },
 
     computed: {
@@ -153,8 +154,7 @@ module.exports = {
         'mdl-button': button
     },
     directives: {
-        'mdl-ripple-effect': ripple,
-        'animate-on-scroll': aos
+        'mdl-ripple-effect': ripple
     }
 }
 

@@ -22,25 +22,23 @@ var $ = require('jquery')
 		    this.itemsRenderedCount = 0
 		    this.didScroll = false
 		    this.docElem = window.document.documentElement
+    		var self = this
 
-    		//var self = this
+				self.items.each(function() {
+    				var el = $(this)
+					if (self._inViewport(el)) {
+						console.log('in')
+						self._checkTotalRendered()
+						el.addClass('shown')
+					}
+				})
 
-			// if (Modernizr.cssanimations) {
-			// 	self.items.each(function() {
-    	// 			var el = $(this)
-			// 		if (self._inViewport(el)) {
-			// 			self._checkTotalRendered()
-			// 			el.addClass('shown')
-			// 		}
-			// 	})
-			//
-			// 	window.addEventListener('scroll', function() {
-			// 		self._onScrollFn()
-			// 	}, false)
-			// 	window.addEventListener('resize', function() {
-			// 		self._resizeHandler()
-			// 	}, false)
-			// }
+				window.addEventListener('scroll', function() {
+					self._onScrollFn()
+				}, false)
+				window.addEventListener('resize', function() {
+					self._resizeHandler()
+				}, false)
 		},
 	    _onScrollFn: function() {
 	        var self = this
