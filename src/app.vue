@@ -17,12 +17,21 @@ a {
 
 .fullBackgroundImage {
     background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-size: cover;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 [v-cloak] {
     display: none;
+}
+
+</style> <style lang='sass' scoped> #body {
+    background-color: rgb(180, 200, 200);
 }
 
 #content {
@@ -40,8 +49,7 @@ a {
 </head>
 
 <body>
-    <div id='body' class='fullBackgroundImage'
-    v-bind:style='backgroundImage'>
+    <div id='body' class='fullBackgroundImage' v-bind:style='backgroundImage'>
 
         <top-bar></top-bar>
 
@@ -67,8 +75,10 @@ export default {
         'top-bar': topbar
     },
     data: function() {
-        return {backgroundImage: 'url(' + bg + ');'}
+        return {
+            backgroundImage: 'url(' + bg + ');'
         }
+    }
 }
 
 </script>

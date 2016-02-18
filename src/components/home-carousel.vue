@@ -1,10 +1,10 @@
 <style lang='sass' scoped >
 
 .carousel-inner {
-    margin-left: auto;
-    margin-right: auto;
+    @extend .centered;
     overflow: hidden;
 }
+
 </style>
 
 <template>
@@ -18,7 +18,7 @@
         </slider>
     </carousel>
 
-        <titlepreview v-bind:item="items[0]" margined v-if='items.length==1'></titlepreview>
+    <titlepreview v-bind:item="items[0]" margined v-if='items.length==1'></titlepreview>
 
 </div>
 

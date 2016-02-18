@@ -1,8 +1,7 @@
 <style lang='sass'>
 
-.js-animateonscroll-not-shown
-{
-opacity: 0;
+.js-animateonscroll-not-shown {
+    opacity: 0;
 }
 
 .js-animateonscroll-animated {
@@ -179,30 +178,30 @@ var $ = require('jquery')
 require('./animateonscrollbase.js')
 
 module.exports = {
-	// params: function() {
-	// 	return {minDuration: 0, maxDuration: 0}
-	// },
-	params: ['minduration', 'maxduration', 'animation'],
+    params: ['minduration', 'maxduration', 'animation'],
 
     bind: function() {
-        var t = $(this)
-				var mind = this.params.minduration
-				var maxd = this.params.maxduration
-				var anim = this.params.animation || 'fadeInLeft'
+        var t = this
+        var mind = t.params.minduration
+        var maxd = t.params.maxduration
+        var anim = t.params.animation || 'fadeInLeft'
+        console.log('bind')
 
-        $(function() {
-            t.AnimateOnScroll({
-                minDuration: mind,
-                maxDuration: maxd,
-								animation: anim
-            })
+        $(t).AnimateOnScroll({
+            minDuration: mind,
+            maxDuration: maxd,
+            animation: anim
         })
     },
     update: function(value) {
-
+        //$(this.el).val(value).trigger('change')
     },
     unbind: function() {
-        $(this.el).off().select2('destroy')
+        console.log('unbind')
+            //var t = $(this)
+            //t.RemoveScroll()
+            //var t = $(this)
+            //console.log(t.timers)
     }
 }
 
