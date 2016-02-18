@@ -176,7 +176,7 @@ opacity: 0;
 <script>
 
 var $ = require('jquery')
-require('./aos.js')
+require('./animateonscrollbase.js')
 
 module.exports = {
 	// params: function() {
