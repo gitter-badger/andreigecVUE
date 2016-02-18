@@ -108,7 +108,7 @@ var card = vmdl.components['mdl-card']
 var button = vmdl.components['mdl-button']
 var ripple = vmdl.directives['mdl-ripple-effect']
 var _ = require('underscore-node')
-
+var aos = require('../directives/animateonscroll')
 module.exports = {
 
     filters: {
@@ -154,7 +154,8 @@ module.exports = {
         'mdl-button': button
     },
     directives: {
-        'mdl-ripple-effect': ripple
+        'mdl-ripple-effect': ripple,
+        'animate-on-scroll': aos
     }
 }
 

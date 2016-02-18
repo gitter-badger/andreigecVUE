@@ -6,10 +6,6 @@ var store = require('./store')
 store.default.actions.GetAllData()
 var App = require('./app')
 
-// transitions
-//Vue.transition('expand', require('./transitions/expand'))
-require('./directives/animateonscroll')
-
 // install router
 Vue.use(VueRouter)
 
