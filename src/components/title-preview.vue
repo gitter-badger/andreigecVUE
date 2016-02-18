@@ -53,8 +53,8 @@ $cardWidthPad: 50;
     }
     .action-box {
         border-top: solid 1px rgb(180, 180, 180);
-        height: 35px;
         bottom: 0;
+        width: 100%;
         position: absolute;
         .material-icons {
             top: -2px;
@@ -73,9 +73,7 @@ $cardWidthPad: 50;
 
 <template>
 
-<mdl-card class="title-preview" actions="actions" actions-text="Get started"
-v-bind:class='marginedClass' v-bind:style='marginstyles'
-v-animate-on-scroll >
+<mdl-card class="title-preview" actions="actions" actions-text="Get started" v-bind:class='marginedClass' v-bind:style='marginstyles' v-animate-on-scroll>
 
     <div slot="title" class='slot title-image' v-bind:style='item.HeadImage | generateImageStyle'>
         <a v-link="{ path: '/Titles/Details/' + item.Name }">
@@ -88,12 +86,7 @@ v-animate-on-scroll >
     </div>
 
     <div slot="actions" class='action-box'>
-        <a v-link="{ path: '/Titles/Details/' + item.Name }">
-            <mdl-button colored v-mdl-ripple-effect>
-                <div class='text view-title'>
-                    <i class="material-icons">info</i></div>
-            </mdl-button>
-        </a>
+        <info-bar v-bind:title='item'></info-bar>
     </div>
 </mdl-card>
 </div>
@@ -109,6 +102,8 @@ var button = vmdl.components['mdl-button']
 var ripple = vmdl.directives['mdl-ripple-effect']
 var _ = require('underscore-node')
 var aos = require('../directives/animateonscroll')
+var ib = require('../components/info-bar')
+
 module.exports = {
 
     filters: {
@@ -151,8 +146,10 @@ module.exports = {
 
     components: {
         'mdl-card': card,
-        'mdl-button': button
+        'mdl-button': button,
+        'info-bar': ib
     },
+
     directives: {
         'mdl-ripple-effect': ripple,
         'animate-on-scroll': aos
