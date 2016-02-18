@@ -4,8 +4,13 @@ var pluginName = 'AnimateOnScroll'
 var defaults = {
   minDuration: 0,
   maxduration: 0,
+	animation: '',
   viewportFactor: 0
 }
+var baseClass = 'js-animateonscroll-'
+var shownClass = baseClass + 'shown'
+var notShownClass = baseClass + 'not-shown'
+var animatedClass = baseClass + 'animated'
 
 function AnimateOnScroll(element, options) {
   this.element = $(element)
@@ -21,10 +26,14 @@ AnimateOnScroll.prototype = {
     this.didScroll = false
     this.docElem = window.document.documentElement
 
+
     if (this._inViewport(this.element)) {
       this._checkTotalRendered()
-      $(this._getCl(this.element)).addClass('shown')
+      $(this._getCl(this.element)).addClass(shownClass)
     }
+		else {
+			$(this._getCl(this.element)).addClass(notShownClass)
+		}
 
     var x = this
     window.addEventListener('scroll', function () {
@@ -46,8 +55,8 @@ AnimateOnScroll.prototype = {
   _scrollPage: function () {
     var t = this
     var elChild = $(this._getCl($(this)))
-    if (!elChild.hasClass('animated') && !elChild.hasClass('shown') && this._inViewport(elChild, this.settings.viewportFactor)) {
-      if (elChild.attr('data-animation')) {
+    if (!elChild.hasClass(animatedClass) && !elChild.hasClass(shownClass) && this._inViewport(elChild, this.settings.viewportFactor)) {
+      if (t.settings.animation) {
         setTimeout(function () {
           var perspY = t._scrollY() + t._getViewportH() / 2
           elChild.css('-webkit-perspective-origin', '50% ' + perspY + 'px')
@@ -62,11 +71,13 @@ AnimateOnScroll.prototype = {
             elChild.css('-moz-animation-duration', randDuration)
             elChild.css('animation-duration', randDuration)
           }
+						elChild.addClass(shownClass)
+						elChild.removeClass(notShownClass)
 
-          elChild.addClass('animated').addClass(elChild.attr('data-animation'))
+          elChild.addClass(animatedClass).addClass(baseClass + t.settings.animation)
         }, 25)
       } else {
-        elChild.addClass('animated').css('opacity', '1')
+        elChild.addClass(animatedClass).css('opacity', '1')
       }
     }
     this.didScroll = false
@@ -148,9 +159,6 @@ AnimateOnScroll.prototype = {
     var viewed = scrolled + this._getViewportH()
     var elTop = this._getOffset(el).top
     var elBottom = elTop + elH
-      // if 0, the element is considered in the viewport as soon as it enters.
-      // if 1, the element is considered in the viewport only when it's fully inside
-      // value in percentage (1 >= h >= 0)
     h = h || 0
     return (elTop + elH * h) <= viewed && (elBottom - elH * h) >= scrolled
   }

@@ -75,7 +75,7 @@ $cardWidthPad: 50;
 
 <mdl-card class="title-preview" actions="actions" actions-text="Get started"
 v-bind:class='marginedClass' v-bind:style='marginstyles'
-v-animate-on-scroll="'test'", data-animation="fadeInDown">
+v-animate-on-scroll >
 
     <div slot="title" class='slot title-image' v-bind:style='item.HeadImage | generateImageStyle'>
         <a v-link="{ path: '/Titles/Details/' + item.Name }">

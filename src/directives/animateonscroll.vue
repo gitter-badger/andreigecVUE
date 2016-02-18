@@ -1,32 +1,11 @@
-<script>
+<style lang='sass'>
 
-var $ = require('jquery')
-require('./aos.js')
+.js-animateonscroll-not-shown
+{
+opacity: 0;
+}
 
-module.exports = {
-
-    bind: function() {
-			var t = $(this)
-			$(function() {
-				t.AnimateOnScroll({
-            minDuration: 1,
-            maxDuration: 5
-        })
-			})
-    },
-    update: function(value) {
-
-    },
-    unbind: function() {
-        $(this.el).off().select2('destroy')
-    }
-	}
-
-</script>
-
-<style>
-
-.animated {
+.js-animateonscroll-animated {
     -webkit-animation-duration: 1s;
     -moz-animation-duration: 1s;
     -o-animation-duration: 1s;
@@ -37,7 +16,7 @@ module.exports = {
     animation-fill-mode: both;
 }
 
-@-webkit-keyframes fadeInLeft {
+@-webkit-keyframes js-animateonscroll-fadeInLeft {
     0% {
         opacity: 0;
         -webkit-transform: translateX(-20px);
@@ -48,7 +27,7 @@ module.exports = {
     }
 }
 
-@-moz-keyframes fadeInLeft {
+@-moz-keyframes js-animateonscroll-fadeInLeft {
     0% {
         opacity: 0;
         -moz-transform: translateX(-20px);
@@ -59,7 +38,7 @@ module.exports = {
     }
 }
 
-@-o-keyframes fadeInLeft {
+@-o-keyframes js-animateonscroll-fadeInLeft {
     0% {
         opacity: 0;
         -o-transform: translateX(-20px);
@@ -70,7 +49,7 @@ module.exports = {
     }
 }
 
-@keyframes fadeInLeft {
+@keyframes js-animateonscroll-fadeInLeft {
     0% {
         opacity: 0;
         transform: translateX(-20px);
@@ -81,14 +60,14 @@ module.exports = {
     }
 }
 
-.fadeInLeft {
-    -webkit-animation-name: fadeInLeft;
-    -moz-animation-name: fadeInLeft;
-    -o-animation-name: fadeInLeft;
-    animation-name: fadeInLeft;
+.js-animateonscroll-fadeInLeft {
+    -webkit-animation-name: js-animateonscroll-fadeInLeft;
+    -moz-animation-name: js-animateonscroll-fadeInLeft;
+    -o-animation-name: js-animateonscroll-fadeInLeft;
+    animation-name: js-animateonscroll-fadeInLeft;
 }
 
-@-webkit-keyframes fadeInRight {
+@-webkit-keyframes js-animateonscroll-fadeInRight {
     0% {
         opacity: 0;
         -webkit-transform: translateX(20px);
@@ -99,7 +78,7 @@ module.exports = {
     }
 }
 
-@-moz-keyframes fadeInRight {
+@-moz-keyframes js-animateonscroll-fadeInRight {
     0% {
         opacity: 0;
         -moz-transform: translateX(20px);
@@ -110,7 +89,7 @@ module.exports = {
     }
 }
 
-@-o-keyframes fadeInRight {
+@-o-keyframes js-animateonscroll-fadeInRight {
     0% {
         opacity: 0;
         -o-transform: translateX(20px);
@@ -121,7 +100,7 @@ module.exports = {
     }
 }
 
-@keyframes fadeInRight {
+@keyframes js-animateonscroll-fadeInRight {
     0% {
         opacity: 0;
         transform: translateX(20px);
@@ -132,14 +111,14 @@ module.exports = {
     }
 }
 
-.fadeInRight {
-    -webkit-animation-name: fadeInRight;
-    -moz-animation-name: fadeInRight;
-    -o-animation-name: fadeInRight;
-    animation-name: fadeInRight;
+.js-animateonscroll-fadeInRight {
+    -webkit-animation-name: js-animateonscroll-fadeInRight;
+    -moz-animation-name: js-animateonscroll-fadeInRight;
+    -o-animation-name: js-animateonscroll-fadeInRight;
+    animation-name: js-animateonscroll-fadeInRight;
 }
 
-@-webkit-keyframes fadeInDown {
+@-webkit-keyframes js-animateonscroll-fadeInDown {
     0% {
         opacity: 0;
         -webkit-transform: translateY(-20px);
@@ -150,7 +129,7 @@ module.exports = {
     }
 }
 
-@-moz-keyframes fadeInDown {
+@-moz-keyframes js-animateonscroll-fadeInDown {
     0% {
         opacity: 0;
         -moz-transform: translateY(-20px);
@@ -161,7 +140,7 @@ module.exports = {
     }
 }
 
-@-o-keyframes fadeInDown {
+@-o-keyframes js-animateonscroll-fadeInDown {
     0% {
         opacity: 0;
         -o-transform: translateY(-20px);
@@ -172,7 +151,7 @@ module.exports = {
     }
 }
 
-@keyframes fadeInDown {
+@keyframes js-animateonscroll-fadeInDown {
     0% {
         opacity: 0;
         transform: translateY(-20px);
@@ -183,11 +162,48 @@ module.exports = {
     }
 }
 
-.fadeInDown {
-    -webkit-animation-name: fadeInDown;
-    -moz-animation-name: fadeInDown;
-    -o-animation-name: fadeInDown;
-    animation-name: fadeInDown;
+.js-animateonscroll-fadeInDown {
+    -webkit-animation-name: js-animateonscroll-fadeInDown;
+    -moz-animation-name: js-animateonscroll-fadeInDown;
+    -o-animation-name: js-animateonscroll-fadeInDown;
+    animation-name: js-animateonscroll-fadeInDown;
 }
 
 </style>
+
+
+
+<script>
+
+var $ = require('jquery')
+require('./aos.js')
+
+module.exports = {
+	// params: function() {
+	// 	return {minDuration: 0, maxDuration: 0}
+	// },
+	params: ['minduration', 'maxduration', 'animation'],
+
+    bind: function() {
+        var t = $(this)
+				var mind = this.params.minduration
+				var maxd = this.params.maxduration
+				var anim = this.params.animation || 'fadeInLeft'
+
+        $(function() {
+            t.AnimateOnScroll({
+                minDuration: mind,
+                maxDuration: maxd,
+								animation: anim
+            })
+        })
+    },
+    update: function(value) {
+
+    },
+    unbind: function() {
+        $(this.el).off().select2('destroy')
+    }
+}
+
+</script>
