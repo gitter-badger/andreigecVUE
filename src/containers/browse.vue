@@ -32,7 +32,7 @@ var hc = require('../components/home-carousel')
 var vmdl = require('vue-mdl')
 var ripple = vmdl.directives['mdl-ripple-effect']
 
-module.exports = {   
+module.exports = {
 
     components: {
         'title-preview-section': titlepreviewsection,
@@ -46,11 +46,11 @@ module.exports = {
     computed: {
         Titles() {
 
-            if (this.$route.params.category.toUpperCase() === 'GAMES') {
-                return store.default.state.TitlesListGames
-            }
+                if (this.$route.params.category.toUpperCase() === 'GAMES') {
+                    return store.default.state.TitlesListGames
+                }
 
-            return store.default.state.TitlesListApplications
+                return store.default.state.TitlesListApplications
             },
 
             TitlesText() {
@@ -59,7 +59,7 @@ module.exports = {
                 }
 
                 return 'Applications'
-            }           
+            }
     }
 }
 

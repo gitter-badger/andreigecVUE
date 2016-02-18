@@ -24,7 +24,7 @@ deploy:
     secure: MjqUbXuEj/bq8iHUN19GdBymbrMkN4gFx7ER5qBi1N1jbls/Xx7YyzJhF+Wo8sT8/2qdJI9CDkiS1TljykAN2KDuxSL3SIXB0eG+ffFhxbGh2UIXx8zBHsU7vzLegIqcbEdY+THlv0lRqJNl6n7vivY463lZb4DEkzXYy4MzpJFOt6QAu6kbK10v/DF/MbBNguCtaR6zH71FAMhAN6MD1iWfe0KxjDvNtzF6ITsOVvtxfZZ488cqJTzkihzVKdyHD0IG5nYtULANLJhrqH9WD7s5vOS5Sbb7VqIKyjwLcQAwHltHk+j5Mo68L4qv5oBZK1Zk7hSRvQ9bPCuBdMI8FtM1poFH2Mrs+xgn+G867zFL2IpKpPVY2DbGUWnG3B2JZyxidBMWExDJGfQSyh+2je/VH02NXtg+yPRupa9pp3uAx5Q9hNYi+5lBoTjHvPWTbc67+9eXAHizj1CHsd3B7QnklMLIJfn77EPGvSWkMyV/y0/72vk6OiYCCl7thrm9Y30pDNrjz5r6xQeG7pIAnENr7wngmICEl8SM8G77EG1/R8vVX+ogrhMu9o5HEXW6cnFV8c7wSKCmkZRqX9YmWF2KWCVVuDjgoZkOvOdvO4pnyvMXgknLNjVsvMbq4SLxlUvKTeFWiuo9XDTnvvnCbxRo0abxVBszs6fr9rW70Dc=
   bucket: andreigec.net
   endpoint: s3-ap-southeast-2.amazonaws.com/andreigec.net
-  acl: bucket_owner_full_control
+  acl: bucket_owner_full_control 
   skip_cleanup: true
   region: ap-southeast-2
   local-dir: dist

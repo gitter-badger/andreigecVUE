@@ -3,7 +3,7 @@
 $detailsCardWidth: 500px;
 .details {
     width: $detailsCardWidth;
-    height:1500px;
+    height: 1500px;
     .model--image {
         margin-left: auto;
         margin-right: auto;

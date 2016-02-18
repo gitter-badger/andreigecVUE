@@ -15,17 +15,21 @@ const state = {
 	TitlesListApplications: [],
 	NewTitles: [],
 	FeaturedTitles: [],
-	newTodo:	'',
+	newTodo: '',
 	editedTodo: null,
-	visibility:	'all'
+	visibility: 'all'
 }
 
 const actions = {
 	GetAllData: GetAllData,
-	GetDetails: ({dispatch, state }, titleName) => {
-var t = _.where(state.TitlesList, {Name: titleName})
-return t[0]
-}
+	GetDetails: ({
+		dispatch, state
+	}, titleName) => {
+		var t = _.where(state.TitlesList, {
+			Name: titleName
+		})
+		return t[0]
+	}
 }
 
 const mutations = {}
@@ -36,68 +40,67 @@ export default new Vuex.Store({
 	mutations
 })
 
-function GetAllData () {
+function GetAllData() {
 	GetFeaturedData()
 	GetPopularData()
 	GetNewData()
 	GetListData()
 }
 
-function SetData (item) {
+function SetData(item) {
 	item.HeadImage = (item.Images != null && item.Images.length >= 1) ? item.Images[0].URL : img
 	item.Images = (item.Images != null && item.Images.length > 1) ? item.Images.slice(1) : null
 	item.Link = '/Titles/Details/' + item.Name
 
-	var i = _.find(md.parse(item.Description), function(v) {
+	var i = _.find(md.parse(item.Description), function (v) {
 		if (v[0] === 'para' && v.length >= 2) {
 			return true
 		}
 		return false
 	})
 
-if (i != null) {
-	item.DescriptionText = i[1]
-}
-else {
-	item.DescriptionText = ''
-}
+	if (i != null) {
+		item.DescriptionText = i[1]
+	} else {
+		item.DescriptionText = ''
+	}
 }
 
 
 //#region popular
-function setPopularAppData (data) {
-	data.forEach (function (s) {
+function setPopularAppData(data) {
+	data.forEach(function (s) {
 		SetData(s)
 		state.PopularTitles.push(s)
 	})
 }
 
 //false means add a firebase callback and add data to cache later
-function LocalStorageUsed (key, callback) {
+function LocalStorageUsed(key, callback) {
 	var timeoutkey = key + '_timeout'
 	var timeout = localStorage.getItem(timeoutkey)
 	var item = JSON.parse(localStorage.getItem(key))
-if (!item) {
-	return false
-}
-
-	if (timeout)	{
-var now = new Date().getTime()
-var diff = now - timeout
-var diffseconds = 30 * 60 * 1000
-//expire
-if (diff > diffseconds) {
-		localStorage.setItem(timeoutkey, null)
-	return false
-}
+	if (!item) {
+		return false
 	}
 
-		localStorage.setItem(timeoutkey, new Date().getTime())
-		callback(item)
-		return true
+	if (timeout) {
+		var now = new Date().getTime()
+		var diff = now - timeout
+		var diffseconds = 30 * 60 * 1000
+			//expire
+		if (diff > diffseconds) {
+			localStorage.setItem(timeoutkey, null)
+			return false
+		}
 	}
 
-function GetPopularData () {
+	localStorage.setItem(timeoutkey, new Date().getTime())
+	callback(item)
+	return true
+}
+
+function GetPopularData() {
 	var key = 'popular'
 	if (!LocalStorageUsed(key, setPopularAppData)) {
 		var fireb = new Firebase(state.baseURL + 'Titles/Popular')
@@ -105,19 +108,19 @@ function GetPopularData () {
 			setPopularAppData(snapshot.val())
 			localStorage.setItem(key, JSON.stringify(state.PopularTitles))
 		})
-}
+	}
 }
 //#endregion popular
 
 //#region featured
-function setFeaturedAppData (data) {
-	data.forEach (function (s) {
+function setFeaturedAppData(data) {
+	data.forEach(function (s) {
 		SetData(s)
 		state.FeaturedTitles.push(s)
 	})
 }
 
-function GetFeaturedData () {
+function GetFeaturedData() {
 	var key = 'new'
 	if (!LocalStorageUsed(key, setFeaturedAppData)) {
 		var fireb = new Firebase(state.baseURL + 'Titles/Featured')
@@ -130,14 +133,14 @@ function GetFeaturedData () {
 //#end region featured
 
 //#region new
-function setNewAppData (data) {
-	data.forEach (function (s) {
+function setNewAppData(data) {
+	data.forEach(function (s) {
 		SetData(s)
 		state.NewTitles.push(s)
 	})
 }
 
-function GetNewData () {
+function GetNewData() {
 	var key = 'new'
 	if (!LocalStorageUsed(key, setNewAppData)) {
 		var fireb = new Firebase(state.baseURL + 'Titles/New')
@@ -150,25 +153,23 @@ function GetNewData () {
 //#endregion new
 
 //#region list
-function SetListData (data) {
+function SetListData(data) {
 	for (var key in data) {
 		SetData(data[key])
 		state.TitlesList.push(data[key])
 		if (data[key].IsGame === true) {
 			state.TitlesListGames.push(data[key])
-		}
-		else {
+		} else {
 			state.TitlesListApplications.push(data[key])
 		}
 	}
 }
 
-function GetListData () {
+function GetListData() {
 	var key = 'list'
 	if (localStorage.getItem(key)) {
 		SetListData(JSON.parse(localStorage.getItem(key)))
-	}
-	else {
+	} else {
 		var fireb = new Firebase(state.baseURL + 'Titles/List')
 		fireb.on('value', function (snapshot) {
 			SetListData(snapshot.val())

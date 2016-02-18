@@ -1,25 +1,22 @@
 <style lang='sass' scoped >
+
 $cardWidth: 400;
 $cardWidthPad: 50;
-
 .section {
     overflow: hidden;
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
     max-width: (($cardWidth + $cardWidthPad) * 3) + px;
-
-  @media screen  and (max-width: (($cardWidth + $cardWidthPad) * 2 ) + 'px') {
-    width: (($cardWidth + $cardWidthPad) ) + px;
-  }
-
-  @media screen and (min-width: (($cardWidth + $cardWidthPad) * 2 ) + 'px') and (max-width: (($cardWidth + $cardWidthPad) * 3 ) + 'px') {
-    width: (($cardWidth + $cardWidthPad) * 2) + px;
-  }
-
-  @media screen and (min-width: (($cardWidth + $cardWidthPad) * 3 ) + 'px') and (max-width: (($cardWidth + $cardWidthPad) * 4 ) + 'px') {
-    width: (($cardWidth + $cardWidthPad) * 3) + px;
-  }
+    @media screen and (max-width: (($cardWidth + $cardWidthPad) * 2) + 'px') {
+        width: (($cardWidth + $cardWidthPad)) + px;
+    }
+    @media screen and (min-width: (($cardWidth + $cardWidthPad) * 2) + 'px') and (max-width: (($cardWidth + $cardWidthPad) * 3) + 'px') {
+        width: (($cardWidth + $cardWidthPad) * 2) + px;
+    }
+    @media screen and (min-width: (($cardWidth + $cardWidthPad) * 3) + 'px') and (max-width: (($cardWidth + $cardWidthPad) * 4) + 'px') {
+        width: (($cardWidth + $cardWidthPad) * 3) + px;
+    }
 }
 
 </style>

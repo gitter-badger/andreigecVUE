@@ -1,6 +1,9 @@
 var Vue = require('vue')
 var VueRouter = require('vue-router')
-import { configRouter } from './route-config'
+import {
+	configRouter
+}
+from './route-config'
 require('babel-polyfill')
 var store = require('./store')
 store.default.actions.GetAllData()
@@ -11,8 +14,8 @@ Vue.use(VueRouter)
 
 // create router
 const router = new VueRouter({
-  history: true,
-  saveScrollPosition: true
+	history: true,
+	saveScrollPosition: true
 })
 
 // configure router
