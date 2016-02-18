@@ -175,8 +175,11 @@
 <script>
 
 var $ = require('jquery')
-require('./animateonscrollbase.js')
-
+import {
+    AnimateOnScroll
+}
+from './animateonscrollbase.js'
+var animations = []
 module.exports = {
     params: ['minduration', 'maxduration', 'animation'],
 
@@ -185,23 +188,27 @@ module.exports = {
         var mind = t.params.minduration
         var maxd = t.params.maxduration
         var anim = t.params.animation || 'fadeInLeft'
-        console.log('bind')
+        var init = function() {
+            var aos = new AnimateOnScroll()
+            aos.AnimateElement($(t), {
+                minDuration: mind,
+                maxDuration: maxd,
+                animation: anim
+            })
+            animations.push(aos)
+        }
 
-        $(t).AnimateOnScroll({
-            minDuration: mind,
-            maxDuration: maxd,
-            animation: anim
-        })
+        setTimeout(init, 10)
+
     },
     update: function(value) {
         //$(this.el).val(value).trigger('change')
     },
     unbind: function() {
-        console.log('unbind')
-            //var t = $(this)
-            //t.RemoveScroll()
-            //var t = $(this)
-            //console.log(t.timers)
+        animations.forEach(function(aos) {
+            aos.Delete()
+            aos = null
+        })
     }
 }
 

@@ -2,200 +2,189 @@
 var $ = require('jquery')
 var _ = require('underscore')
 
-var cl = class AnimateOnScroll {
+export class AnimateOnScroll {
+  constructor() {
+    this.pluginName = 'AnimateOnScroll'
+    this.defaults = {
+      minDuration: 0,
+      maxduration: 0,
+      animation: '',
+      viewportFactor: 0
+    }
 
-	var pluginName = 'AnimateOnScroll'
-	var defaults = {
-	  minDuration: 0,
-	  maxduration: 0,
-	  animation: '',
-	  viewportFactor: 0
-	}
-	var baseClass = 'js-animateonscroll-'
-	var shownClass = baseClass + 'shown'
-	var notShownClass = baseClass + 'not-shown'
-	var animatedClass = baseClass + 'animated'
+    this.baseClass = 'js-animateonscroll-'
+    this.shownClass = this.baseClass + 'shown'
+    this.notShownClass = this.baseClass + 'not-shown'
+    this.animatedClass = this.baseClass + 'animated'
+    this._scrollFn = ''
+  }
 
-	var _scrollFn = ''
+  AnimateElement(element, options) {
+    this.directive = $(element)
+    this.element = $(this._getCl(this.directive))
+    this.settings = $.extend({}, this.defaults, options)
+    this.init()
+  }
 
-	function AnimateOnScroll(element, options) {
-	  var t = this
-	  $(function () {
-	    t.element = $(element)
-	    t.settings = $.extend({}, defaults, options)
-	    t._defaults = defaults
-	    t._name = pluginName
-	    t.init()
-	  })
-	}
+  Update() {
+    this._scrollPage()
+  }
 
-	AnimateOnScroll.prototype = {
-	  init: function () {
-	    this.didScroll = false
-	    this.docElem = window.document.documentElement
+  Delete() {
+    this._removeScroll()
+  }
 
-	    var el = $(this._getCl(this.element))
-	    console.log('inview?')
-	    if (this._inViewport(this.element)) {
-	      console.log('yes')
-	      this._checkTotalRendered()
-	      el.addClass(shownClass)
-	    } else {
-	      console.log('no')
-	      el.addClass(notShownClass)
-	    }
+  init() {
+    this.didScroll = false
+    this.docElem = window.document.documentElement
 
-	    var x = this
-	    _scrollFn = _.debounce(function () {
-	      if (!x.didScroll) {
-	        x.didScroll = true
-	        setTimeout(function () {
-	          console.log('scroll')
-	          x._scrollPage()
-	        }, 60)
-	      }
-	    }, 100)
+    if (this._inViewport(this.element)) {
+      this._checkTotalRendered()
+      this.element.addClass(this.shownClass)
+    } else {
+      this.element.addClass(this.notShownClass)
+    }
 
-	    var resizeFn = _.debounce(function () {
-	      console.log('resi')
-	      x._resizeHandler()
-	    }, 100, true)
+    var x = this
+    this._scrollFn = _.debounce(function () {
+      if (!x.didScroll) {
+        x.didScroll = true
+        setTimeout(function () {
+          x._scrollPage()
+        }, 60)
+      }
+    }, 100)
 
-	    window.addEventListener('scroll', _scrollFn, false)
-	    window.addEventListener('resize', resizeFn, false)
-	  },
-	  _removeScroll: function () {
-	    console.log('remove')
-	    window.removeEventListener('scroll', this._scrollFn)
-	    window.removeEventListener('resize', this.resizeFn)
-	  },
-	  _scrollPage: function () {
-	    var t = this
-	    var elChild = $(this._getCl($(this)))
-	    if (elChild.length === 0) {
-	      this._removeScroll()
-	      return
-	    }
-	    if (!elChild.hasClass(animatedClass) && !elChild.hasClass(shownClass) && this._inViewport(elChild, this.settings.viewportFactor)) {
-	      if (t.settings.animation) {
-	        setTimeout(function () {
-	          var perspY = t._scrollY() + t._getViewportH() / 2
-	          elChild.css('-webkit-perspective-origin', '50% ' + perspY + 'px')
-	          elChild.css('-moz-perspective-origin', '50% ' + perspY + 'px')
-	          elChild.css('perspective-origin', '50% ' + perspY + 'px')
+    var resizeFn = _.debounce(function () {
+      x._resizeHandler()
+    }, 100, true)
 
-	          t._checkTotalRendered()
+    window.addEventListener('scroll', this._scrollFn, false)
+    window.addEventListener('resize', resizeFn, false)
+  }
 
-	          if (t.settings.minDuration && t.settings.maxDuration) {
-	            var randDuration = (Math.random() * (t.settings.maxDuration - t.settings.minDuration) - t.settings.minDuration) + 's'
-	            elChild.css('-webkit-animation-duration', randDuration)
-	            elChild.css('-moz-animation-duration', randDuration)
-	            elChild.css('animation-duration', randDuration)
-	          }
-	          elChild.addClass(shownClass)
-	          elChild.removeClass(notShownClass)
+  _removeScroll() {
+    window.removeEventListener('scroll', this._scrollFn)
+    window.removeEventListener('resize', this.resizeFn)
+  }
+  _scrollPage() {
+    var t = this
+    var elChild = t.element
+    if (elChild.length === 0) {
+      t._removeScroll()
+      return
+    }
+    if (!elChild.hasClass(t.animatedClass) && !elChild.hasClass(t.shownClass) && t._inViewport(elChild, this.settings.viewportFactor)) {
+      if (t.settings.animation) {
+        setTimeout(function () {
+          var perspY = t._scrollY() + t._getViewportH() / 2
+          elChild.css('-webkit-perspective-origin', '50% ' + perspY + 'px')
+          elChild.css('-moz-perspective-origin', '50% ' + perspY + 'px')
+          elChild.css('perspective-origin', '50% ' + perspY + 'px')
 
-	          elChild.addClass(animatedClass).addClass(baseClass + t.settings.animation)
-	        }, 25)
-	      } else {
-	        elChild.addClass(animatedClass).css('opacity', '1')
-	      }
-	    }
-	    this.didScroll = false
-	  },
-	  _resizeHandler: function () {
-	    var self = this
+          t._checkTotalRendered()
 
-	    function delayed() {
-	      self._scrollPage()
-	      self.resizeTimeout = null
-	    }
-	    if (this.resizeTimeout) {
-	      clearTimeout(this.resizeTimeout)
-	    }
-	    this.resizeTimeout = setTimeout(delayed, 1000)
-	  },
-	  _checkTotalRendered: function () {
-	    ++this.itemsRenderedCount
-	    if (this.itemsRenderedCount === this.itemsCount) {
-	      window.removeEventListener('scroll', this._scrollFn)
-	    }
-	  },
-	  _getViewportH: function () {
-	    var client = this.docElem['clientHeight']
-	    var inner = window['innerHeight']
+          if (t.settings.minDuration && t.settings.maxDuration) {
+            var randDuration = (Math.random() * (t.settings.maxDuration - t.settings.minDuration) - t.settings.minDuration) + 's'
+            elChild.css('-webkit-animation-duration', randDuration)
+            elChild.css('-moz-animation-duration', randDuration)
+            elChild.css('animation-duration', randDuration)
+          }
+          elChild.addClass(t.shownClass)
+          elChild.removeClass(t.notShownClass)
 
-	    if (client < inner) {
-	      return inner
-	    } else {
-	      return client
-	    }
-	  },
-	  _scrollY: function () {
-	    return window.pageYOffset || this.docElem.scrollTop
-	  },
-	  _getOffset: function (el) {
-	    var offsetTop = 0
-	    var offsetLeft = 0
-	    do {
-	      if (!isNaN(el.offsetTop)) {
-	        offsetTop += el.offsetTop
-	      }
-	      if (!isNaN(el.offsetLeft)) {
-	        offsetLeft += el.offsetLeft
-	      }
-	    }
-	    while (el === el.offsetParent)
-
-	    return {
-	      top: offsetTop,
-	      left: offsetLeft
-	    }
-	  },
-
-	  _getCl: function (el) {
-	    try {
-	      return $(el)[0].element[0].el
-	    } catch (e) {
-
-	    } finally {
-
-	    }
-
-	    if (!el[0].el) {
-	      return el[0]
-	    }
-
-	    return el[0].el
-	  },
-
-	  _inViewport: function (el, h) {
-	    el = this._getCl(el)
-	    var elH = el.offsetHeight
-	    if (elH === 0) {
-	      return false
-	    }
-
-	    var scrolled = this._scrollY()
-	    var viewed = scrolled + this._getViewportH()
-	    var elTop = this._getOffset(el).top
-	    var elBottom = elTop + elH
-	    h = h || 0
-	    return (elTop + elH * h) <= viewed && (elBottom - elH * h) >= scrolled
-	  }
-	}
-
-	$.fn[pluginName] = function (options) {
-	  return this.each(function () {
-	    if (!$.data(this, 'plugin_' + pluginName)) {
-	      $.data(this, 'plugin_' + pluginName, new AnimateOnScroll(this, options))
-	      console.log('created')
-	    } else {
-	      console.log('existed')
-	    }
-	  })
-	}
+          elChild.addClass(t.animatedClass).addClass(t.baseClass + t.settings.animation)
+        }, 25)
+      } else {
+        elChild.addClass(t.animatedClass).css('opacity', '1')
+      }
+    }
+    t.didScroll = false
+  }
 
 
+  _resizeHandler() {
+    var self = this
+
+    function delayed() {
+      self._scrollPage()
+      self.resizeTimeout = null
+    }
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout)
+    }
+    this.resizeTimeout = setTimeout(delayed, 1000)
+  }
+
+  _checkTotalRendered() {
+    ++this.itemsRenderedCount
+    if (this.itemsRenderedCount === this.itemsCount) {
+      window.removeEventListener('scroll', this._scrollFn)
+    }
+  }
+
+  _getViewportH() {
+    var client = this.docElem['clientHeight']
+    var inner = window['innerHeight']
+
+    if (client < inner) {
+      return inner
+    } else {
+      return client
+    }
+  }
+
+  _scrollY() {
+    return window.pageYOffset || this.docElem.scrollTop
+  }
+
+  _getOffset(el) {
+    var offsetTop = 0
+    var offsetLeft = 0
+    do {
+      if (!isNaN(el.offsetTop)) {
+        offsetTop += el.offsetTop
+      }
+      if (!isNaN(el.offsetLeft)) {
+        offsetLeft += el.offsetLeft
+      }
+    }
+    while (el === el.offsetParent)
+
+    return {
+      top: offsetTop,
+      left: offsetLeft
+    }
+  }
+
+  _getCl(el) {
+    try {
+      return $(el)[0].element[0].el
+    } catch (e) {
+
+    } finally {
+
+    }
+
+    if (!el[0].el) {
+      return el[0]
+    }
+
+    return el[0].el
+  }
+
+  _inViewport(elD, h) {
+    var el = elD[0]
+    var elH = el.offsetHeight
+    if (elH === 0) {
+      return false
+    }
+
+    var scrolled = this._scrollY()
+    var viewed = scrolled + this._getViewportH()
+    var elTop = this._getOffset(el).top
+    var elBottom = elTop + elH
+    h = h || 0
+    return (elTop + elH * h) <= viewed && (elBottom - elH * h) >= scrolled
+  }
 }
-return cl
