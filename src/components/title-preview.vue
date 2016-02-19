@@ -6,7 +6,7 @@ $cardWidthPad: 50;
 .title-preview {
     color: black;
     width: $cardWidth + px;
-    height: 290px;
+  //  height: 290px;
     position: relative;
     &.margined {
         margin-left: auto;
@@ -14,6 +14,11 @@ $cardWidthPad: 50;
         margin-top: 15px;
         margin-bottom: 15px;
         float: none;
+
+        @media screen and (max-width: (($cardWidth + $cardWidthPad)) + 'px') {
+          margin-left: 0;
+          margin-right: 0;
+        }
     }
     &.floatleft {
         @media screen and (min-width: (($cardWidth + $cardWidthPad) * 2) + 'px') {
@@ -55,7 +60,7 @@ $cardWidthPad: 50;
         border-top: solid 1px rgb(180, 180, 180);
         bottom: 0;
         width: 100%;
-        position: absolute;
+        position: relative;
         .material-icons {
             top: -2px;
             position: relative;
@@ -86,9 +91,11 @@ $cardWidthPad: 50;
     </div>
 
     <div slot="actions" class='action-box'>
-        <info-bar v-bind:title='item'></info-bar>
+        <info-bar v-bind:title='item' :expanded.sync='expanded'></info-bar>
+        <title-preview-expand v-if='expanded'></title-preview-expand>
     </div>
 </mdl-card>
+
 </div>
 
 </template>
@@ -97,12 +104,16 @@ $cardWidthPad: 50;
 
 var cardHeight = '200px'
 var vmdl = require('vue-mdl')
+var _ = require('underscore-node')
+
 var card = vmdl.components['mdl-card']
 var button = vmdl.components['mdl-button']
 var ripple = vmdl.directives['mdl-ripple-effect']
-var _ = require('underscore-node')
+
 var aos = require('../directives/animateonscroll')
+
 var ib = require('../components/info-bar')
+var tpe = require('../components/title-preview-expand')
 
 module.exports = {
 
@@ -123,7 +134,8 @@ module.exports = {
 
     data: function() {
         return {
-            cardHeight: cardHeight
+            cardHeight: cardHeight,
+            expanded: false
         }
     },
 
@@ -147,7 +159,8 @@ module.exports = {
     components: {
         'mdl-card': card,
         'mdl-button': button,
-        'info-bar': ib
+        'info-bar': ib,
+        'title-preview-expand': tpe
     },
 
     directives: {

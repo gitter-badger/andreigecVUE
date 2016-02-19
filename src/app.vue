@@ -36,6 +36,7 @@ a {
 
 #content {
     padding-top: 80px;
+    overflow: hidden;
 }
 
 </style>
