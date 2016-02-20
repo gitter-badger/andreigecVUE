@@ -18,7 +18,6 @@ header {
     color: white;
     text-transform: inherit;
 }
-
 </style>
 
 <template>

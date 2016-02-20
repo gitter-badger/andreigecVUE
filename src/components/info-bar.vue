@@ -114,7 +114,7 @@ module.exports = {
         toggleExpanded: function() {
             this.expanded = !this.expanded
             this.$dispatch('selectedTitle', {
-                titleId: this.title.Id,
+                title: this.title,
                 expanded: this.expanded
             })
         }

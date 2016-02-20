@@ -16,8 +16,12 @@
 
 <template>
 
-<grid-expander :selector-id.sync='selectedTitleId' :expanded.sync='ExpandedIsSet'>
+<grid-expander :selector-id.sync='selectedTitleId'>
+  <div slot='content'>
+      <title-preview-expand :title.sync='selectedTitle'>
 
+      </title-preview-expand>
+  </div>
 </grid-expander>
 <home-carousel name="Featured Titles" v-bind:items="FeaturedTitles">
     <div slot='header-text' class='header-text'>
@@ -47,13 +51,16 @@ var hc = require('../components/home-carousel')
 var vmdl = require('vue-mdl')
 var ripple = vmdl.directives['mdl-ripple-effect']
 var ge = require('../components/grid-expander')
+var tpe = require('../components/title-preview-expand')
 
 module.exports = {
 
     components: {
         'title-preview-section': titlepreviewsection,
         'home-carousel': hc,
-        'grid-expander': ge
+        'grid-expander': ge,
+        'title-preview-expand': tpe
+
     },
 
     directives: {
@@ -62,7 +69,8 @@ module.exports = {
 
     data: function() {
         return {
-            selectedTitleId: -1
+            selectedTitleId: -1,
+            selectedTitle: {}
         }
     },
     computed: {
@@ -74,22 +82,26 @@ module.exports = {
             },
             NewTitles() {
                 return store.default.state.NewTitles
-            },
-            ExpandedIsSet() {
-                return this.selectedTitleId !== -1
             }
     },
 
     events: {
+      'closePreview': function (msg) {
+        this.selectedTitleId = -1
+        this.selectedTitle = {}
+        this.$broadcast('closeTitlesExcept', -1)        
+      },
         'selectedTitle': function(msg) {
-            var titleId = msg.titleId
+            var titleId = msg.title.Id
+            var title = msg.title
             var expanded = msg.expanded
-
+            this.$broadcast('closeTitlesExcept', titleId)
             if (expanded) {
-                this.$broadcast('closeTitlesExcept', titleId)
                 this.selectedTitleId = titleId
+                this.selectedTitle = title
             } else {
                 this.selectedTitleId = -1
+                this.selectedTitle = {}
             }
         }
     }
