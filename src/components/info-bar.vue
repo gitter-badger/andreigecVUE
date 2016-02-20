@@ -12,8 +12,8 @@ $noColourSelected: darken($noColour, 10%);
         display: block;
         overflow: hidden;
         float: left;
-        .expanded{
-          background-color:red;
+        .expanded {
+            background-color: red;
         }
     }
 }
@@ -69,10 +69,10 @@ ul {
 
 <div class='info-bar'>
     <div>
-            <mdl-button colored v-mdl-ripple-effect  v-on:click='toggleExpanded()'  v-bind:class='expanded ? "expanded" : ""'>
-                <div class='text view-title'>
-                    <i class="material-icons">info</i></div>
-            </mdl-button>
+        <mdl-button colored v-mdl-ripple-effect v-on:click='toggleExpanded()' v-bind:class='expanded ? "expanded" : ""'>
+            <div class='text view-title'>
+                <i class="material-icons">info</i></div>
+        </mdl-button>
     </div>
 
     <div>
@@ -105,16 +105,19 @@ module.exports = {
             required: true
         },
         expanded: {
-          type: Boolean,
-          required: true
+            type: Boolean,
+            required: true
         }
     },
 
     methods: {
-      toggleExpanded: function() {
-        console.log('1:' + this.expanded)
-        this.expanded = !this.expanded
-      }
+        toggleExpanded: function() {
+            this.expanded = !this.expanded
+            this.$dispatch('selectedTitle', {
+                titleId: this.title.Id,
+                expanded: this.expanded
+            })
+        }
     },
 
     computed: {
@@ -124,6 +127,15 @@ module.exports = {
             hasAppVeyor() {
                 return this.title.HasAppveyor
             }
+    },
+
+    events: {
+        'closeTitlesExcept': function(msg) {
+            if (this.expanded === false || this.title.Id === msg) {
+                return false
+            }
+            this.expanded = false
+        }
     },
 
     components: {

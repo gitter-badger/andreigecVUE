@@ -1,21 +1,17 @@
 <style lang='sass' scoped >
 
-$cardWidth: 400;
-$cardWidthPad: 50;
 .section {
+    @import "../styles/global.scss";
     overflow: hidden;
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
-    max-width: (($cardWidth + $cardWidthPad) * 3) + px;
-    @media screen and (max-width: (($cardWidth + $cardWidthPad) * 2) + 'px') {
-        width: (($cardWidth + $cardWidthPad)) + px;
+    max-width: section-width(3);
+    @media screen and (max-width: section-width(2)) {
+        width: section-width(1);
     }
-    @media screen and (min-width: (($cardWidth + $cardWidthPad) * 2) + 'px') and (max-width: (($cardWidth + $cardWidthPad) * 3) + 'px') {
-        width: (($cardWidth + $cardWidthPad) * 2) + px;
-    }
-    @media screen and (min-width: (($cardWidth + $cardWidthPad) * 3) + 'px') and (max-width: (($cardWidth + $cardWidthPad) * 4) + 'px') {
-        width: (($cardWidth + $cardWidthPad) * 3) + px;
+    @media screen and (min-width: section-width(2)) and (max-width: section-width(3)) {
+        width: section-width(2);
     }
 }
 
@@ -25,9 +21,7 @@ $cardWidthPad: 50;
 
 <div class='section'>
     <slot name='header-text'></slot>
-
-    <titlepreview v-for="title in items" v-bind:item="title"></titlepreview>
-
+    <titlepreview v-for="title in items" v-bind:title="title"></titlepreview>
 </div>
 
 </template>
@@ -56,6 +50,14 @@ module.exports = {
     directives: {
         'mdl-badge': badge,
         'mdl-ripple-effect': ripple
+    },
+    events: {
+        'selectedTitle': function(msg) {
+            return true
+        },
+        'closeTitlesExcept': function(msg) {
+            return true
+        }
     }
 }
 

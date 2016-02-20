@@ -181,10 +181,16 @@ import {
 from './animateonscrollbase.js'
 var animations = []
 module.exports = {
-    params: ['minduration', 'maxduration', 'animation'],
+    params: ['minduration', 'maxduration', 'animation', 'forceshow'],
+
 
     bind: function() {
         var t = this
+
+        if (t.params.forceshow) {
+          return
+        }
+
         var mind = t.params.minduration
         var maxd = t.params.maxduration
         var anim = t.params.animation || 'fadeInLeft'

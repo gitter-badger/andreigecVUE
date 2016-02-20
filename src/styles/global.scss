@@ -1,0 +1,36 @@
+
+.not-active {
+    pointer-events: none;
+    cursor: default;
+}
+
+a {
+    &.v-link-active {
+        @extend .not-active;
+        color: rgb(200, 200, 200);
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+.fullBackgroundImage {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+$cardWidth: 400;
+$cardWidthPad: 30;
+@function section-width($cards) {
+  @return (($cardWidth + $cardWidthPad) * ($cards)) + px
+}

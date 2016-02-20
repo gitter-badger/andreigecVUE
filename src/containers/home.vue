@@ -16,6 +16,9 @@
 
 <template>
 
+<grid-expander :selector-id.sync='selectedTitleId' :expanded.sync='ExpandedIsSet'>
+
+</grid-expander>
 <home-carousel name="Featured Titles" v-bind:items="FeaturedTitles">
     <div slot='header-text' class='header-text'>
         <i class="material-icons">grade</i> Featured Titles
@@ -43,21 +46,27 @@ var titlepreviewsection = require('../components/title-preview-section')
 var hc = require('../components/home-carousel')
 var vmdl = require('vue-mdl')
 var ripple = vmdl.directives['mdl-ripple-effect']
+var ge = require('../components/grid-expander')
 
 module.exports = {
 
     components: {
         'title-preview-section': titlepreviewsection,
-        'home-carousel': hc
+        'home-carousel': hc,
+        'grid-expander': ge
     },
 
     directives: {
         'mdl-ripple-effect': ripple
     },
 
+    data: function() {
+        return {
+            selectedTitleId: -1
+        }
+    },
     computed: {
         PopularTitles() {
-
                 return store.default.state.PopularTitles
             },
             FeaturedTitles() {
@@ -65,7 +74,24 @@ module.exports = {
             },
             NewTitles() {
                 return store.default.state.NewTitles
+            },
+            ExpandedIsSet() {
+                return this.selectedTitleId !== -1
             }
+    },
+
+    events: {
+        'selectedTitle': function(msg) {
+            var titleId = msg.titleId
+            var expanded = msg.expanded
+
+            if (expanded) {
+                this.$broadcast('closeTitlesExcept', titleId)
+                this.selectedTitleId = titleId
+            } else {
+                this.selectedTitleId = -1
+            }
+        }
     }
 }
 

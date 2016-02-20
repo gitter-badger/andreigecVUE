@@ -14,11 +14,11 @@
 
     <carousel class="popular-carousel" v-bind:interval='0' :indicators=false v-if='items.length > 1'>
         <slider v-for="title in items">
-            <titlepreview v-bind:item="title" margined></titlepreview>
+            <titlepreview v-bind:title="title" margined v-bind:forceshow=true></titlepreview>
         </slider>
     </carousel>
 
-    <titlepreview v-bind:item="items[0]" margined v-if='items.length==1'></titlepreview>
+    <titlepreview v-bind:title="items[0]" margined v-if='items.length==1'></titlepreview>
 
 </div>
 
@@ -59,6 +59,14 @@ module.exports = {
     },
     directives: {
         'mdl-ripple-effect': ripple
+    },
+    events: {
+      'selectedTitle': function(msg) {
+      return true
+      },
+      'closeTitlesExcept': function(msg) {
+          return true
+      }
     }
 }
 

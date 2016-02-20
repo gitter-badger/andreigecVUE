@@ -1,12 +1,10 @@
 <style lang='sass' scoped>
 
 $gray: rgb(80, 80, 80);
-$cardWidth: 400;
-$cardWidthPad: 50;
 .title-preview {
+    @import "../styles/global.scss";
     color: black;
     width: $cardWidth + px;
-  //  height: 290px;
     position: relative;
     &.margined {
         margin-left: auto;
@@ -14,18 +12,17 @@ $cardWidthPad: 50;
         margin-top: 15px;
         margin-bottom: 15px;
         float: none;
-
-        @media screen and (max-width: (($cardWidth + $cardWidthPad)) + 'px') {
-          margin-left: 0;
-          margin-right: 0;
+        @media screen and (max-width: section-width(1)) {
+            margin-left: 0;
+            margin-right: 0;
         }
     }
     &.floatleft {
-        @media screen and (min-width: (($cardWidth + $cardWidthPad) * 2) + 'px') {
+        @media screen and (min-width: section-width(2)) {
             float: left;
             margin: 15px;
         }
-        @media screen and (max-width: (($cardWidth + $cardWidthPad) * 2) + 'px') {
+        @media screen and (max-width: section-width(2)) {
             @extend .margined
         }
     }
@@ -78,21 +75,20 @@ $cardWidthPad: 50;
 
 <template>
 
-<mdl-card class="title-preview" actions="actions" actions-text="Get started" v-bind:class='marginedClass' v-bind:style='marginstyles' v-animate-on-scroll>
+<mdl-card id='{{title.Id}}' class="title-preview" actions="actions" actions-text="Get started" v-bind:class='marginedClass' v-bind:style='marginstyles' v-animate-on-scroll v-bind:forceshow='forceshow'>
 
-    <div slot="title" class='slot title-image' v-bind:style='item.HeadImage | generateImageStyle'>
-        <a v-link="{ path: '/Titles/Details/' + item.Name }">
+    <div slot="title" class='slot title-image' v-bind:style='title.HeadImage | generateImageStyle'>
+        <a v-link="{ path: '/Titles/Details/' + title.Name }">
             <mdl-button colored v-mdl-ripple-effect class='text title'>
-                {{item.Name}}</div>
+                {{title.Name}}</div>
     </a>
     </div>
 
-    <div slot="supporting-text" class='text caption' v-text='item.DescriptionText | truncate 100 '>
+    <div slot="supporting-text" class='text caption' v-text='title.DescriptionText | truncate 100 '>
     </div>
 
     <div slot="actions" class='action-box'>
-        <info-bar v-bind:title='item' :expanded.sync='expanded'></info-bar>
-        <title-preview-expand v-if='expanded'></title-preview-expand>
+        <info-bar v-bind:title='title' :expanded.sync='expanded'></info-bar>
     </div>
 </mdl-card>
 
@@ -113,7 +109,6 @@ var ripple = vmdl.directives['mdl-ripple-effect']
 var aos = require('../directives/animateonscroll')
 
 var ib = require('../components/info-bar')
-var tpe = require('../components/title-preview-expand')
 
 module.exports = {
 
@@ -149,18 +144,26 @@ module.exports = {
     },
 
     props: {
-        item: {
+        title: {
             type: Object,
             required: true
         },
+        forceshow: Boolean,
         margined: Boolean
+    },
+    events: {
+        'selectedTitle': function(msg) {
+            return true
+        },
+        'closeTitlesExcept': function(msg) {
+            return true
+        }
     },
 
     components: {
         'mdl-card': card,
         'mdl-button': button,
-        'info-bar': ib,
-        'title-preview-expand': tpe
+        'info-bar': ib
     },
 
     directives: {

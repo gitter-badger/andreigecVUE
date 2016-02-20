@@ -1,37 +1,8 @@
-<style lang='sass'>
+<style lang='sass' scoped>
 
-.not-active {
-    pointer-events: none;
-    cursor: default;
-}
 
-a {
-    &.v-link-active {
-        @extend .not-active;
-        color: rgb(200, 200, 200);
-        &:hover {
-            color: white;
-        }
-    }
-}
-
-.fullBackgroundImage {
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-
-.centered {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-[v-cloak] {
-    display: none;
-}
-
-</style> <style lang='sass' scoped> #body {
-    background-color: rgb(180, 200, 200);
+#body {
+@import "styles/global.scss";
 }
 
 #content {
@@ -77,7 +48,9 @@ export default {
     },
     data: function() {
         return {
-            backgroundImage: 'url(' + bg + ');'
+          'backgroundImage': {
+            'background-image': 'url(' + bg + ')',
+            'background-color': 'rgb(180, 200, 200)'}
         }
     }
 }

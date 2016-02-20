@@ -121,7 +121,7 @@ function setFeaturedAppData(data) {
 }
 
 function GetFeaturedData() {
-	var key = 'new'
+	var key = 'featured'
 	if (!LocalStorageUsed(key, setFeaturedAppData)) {
 		var fireb = new Firebase(state.baseURL + 'Titles/Featured')
 		fireb.on('value', function (snapshot) {
