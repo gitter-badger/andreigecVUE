@@ -1,7 +1,7 @@
 <style lang='sass' scoped >
+@import "../styles/variables.scss";
 
 .section {
-    @import "../styles/global.scss";
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -14,10 +14,6 @@
     }
     .header-text {
         overflow: hidden;
-    }
-
-    .clear {
-      clear:both
     }
 }
 

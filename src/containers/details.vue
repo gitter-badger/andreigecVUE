@@ -1,4 +1,5 @@
 <style lang='sass' scoped>
+@import "../styles/variables.scss";
 
 $detailsCardWidth: 500px;
 .details {
@@ -120,7 +121,6 @@ var slider = require('vue-strap').slider
 var vmdl = require('vue-mdl')
 var card = vmdl.components['mdl-card']
 
-var cardHeight = '200px'
 var _ = require('underscore-node')
 
 module.exports = {
@@ -136,7 +136,6 @@ module.exports = {
     filters: {
         generateImageStyle: function(url) {
             return {
-                height: cardHeight,
                 'background-size': 'cover',
                 'background-image': 'url(' + url + ')'
             }

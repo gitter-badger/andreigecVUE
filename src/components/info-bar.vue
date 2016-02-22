@@ -78,10 +78,7 @@ ul {
     <div>
         <ul>
             <li><a target='_blank' class='sub-item' href="{{title.ReleaseURL}}" v-bind:class="hasRelease ? '' : 'no-item'">Download <strong>Binary</strong></a></li>
-            <li><a target='_blank' class='sub-item' href="{{title.GHPageURL}}">View On <strong>GitHub</strong></a></li>
-            <li v-if='hasAppVeyor'>
-                <img v-bind:src="title.AppveyorBadgeURL" class='model--image' />
-            </li>
+            <li><a target='_blank' class='sub-item' href="{{title.GHPageURL}}">View On <strong>GitHub</strong></a></li>           
 
         </ul>
     </div>

@@ -1,0 +1,12 @@
+$cardWidth: 400;
+$cardWidthPad: 30;
+
+@function section-width($cards) {
+  @return (($cardWidth + $cardWidthPad) * ($cards)) + px
+}
+
+$cardHeight: 400;
+$cardHeightPad: 30;
+@function section-height($cards) {
+  @return (($cardHeight + $cardHeightPad) * ($cards)) + px
+}

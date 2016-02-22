@@ -1,8 +1,8 @@
 <style lang='sass' scoped>
-
+@import "../styles/variables.scss";
 $gray: rgb(80, 80, 80);
 .title-preview {
-    @import "../styles/global.scss";
+    @import "../styles/variables.scss";
     color: black;
     width: $cardWidth + px;
     position: relative;

@@ -1,15 +1,12 @@
-<style lang='sass' scoped>
-
-
-#body {
+<style lang='sass'>
 @import "styles/global.scss";
-}
+</style>
 
+<style lang='sass' scoped>
 #content {
     padding-top: 80px;
     overflow: hidden;
 }
-
 </style>
 
 <template>

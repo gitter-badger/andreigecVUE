@@ -1,13 +1,69 @@
-<style lang='sass' scoped>
+<style lang='sass'>
+
+.preview {
+    .mdl-checkbox {
+        color: white;
+        >* {
+            color: white;
+        }
+        .mdl-checkbox__box-outline {
+            border: 2px solid indianred !important;
+            background: white;
+        }
+        .mdl-checkbox__label {
+            color: white !important;
+        }
+        &.is-checked {
+            .mdl-checkbox__box-outline {
+                border: 2px solid green !important;
+            }
+        }
+    }
+    .description {
+        h1 {
+            font-size: 30px;
+        }
+        h2 {
+            font-size: 25px;
+        }
+        h1 {
+            &#images {
+                display: none;
+                ~ p {
+                    display: none;
+                }
+            }
+        }
+        img {
+          display:none;
+        }
+    }
+}
+
+</style> <style lang='sass' scoped> @import "../styles/variables.scss";
+.carousel-inner {
+    display: none;
+}
 
 $paddingTop: 10px;
 .preview {
-    @import "../styles/global.scss";
     background-color: rgb(40, 40, 40);
     color: white;
     overflow: hidden;
     padding-top: $paddingTop;
-    height: 400px;
+    @media screen and (min-width: section-width(2)) and (max-width: section-width(3)) {
+        height: 400px;
+    }
+    @media screen and (min-width: section-width(3)) and (max-width: section-width(4)) {
+        height: 600px;
+    }
+    .model--image {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        //    top: 25%;
+        //    position: relative;
+    }
     .material-icons {
         font-size: 40px;
         right: 10px;
@@ -16,19 +72,16 @@ $paddingTop: 10px;
     }
     .image-left {
         float: left;
-        max-width: 500px;
+        width: 60%;
         height: 100%;
-        img {
+        .image-spacer {
             top: 25%;
-            position: relative;
-        }
-        .carousel-inner {
-            @extend .centered;
-            overflow: hidden;
+            height: 100%;
+            width: 100%;
         }
     }
     @media screen and (min-width: section-width(2)) {
-        .sep {
+        .horizontal-spacer {
             background: #121212;
             box-shadow: 1px 0 #444;
             display: inline-block;
@@ -40,10 +93,17 @@ $paddingTop: 10px;
             float: left;
         }
     }
-    .title {
+    .content {
         float: left;
+        width: 39%;
+        >* {
+            margin: 20px;
+        }
+    }
+    .title {
         margin-left: 20px;
-        font-size: 1.5rem;
+        font-size: 2rem;
+        padding: 20px;
     }
 }
 
@@ -56,20 +116,28 @@ $paddingTop: 10px;
     <div class='image-left'>
         <carousel class="image-carousel" v-bind:interval='0' :indicators=false v-if='!onlyHeadImage' class='js-grid-expander-after-this'>
             <slider v-for="img in title.Images">
-                <img v-bind:src="img.URL" class='model--image' />
+                <div class='image-spacer'>
+                    <img v-bind:src="img.URL" class='model--image' />
+                </div>
             </slider>
         </carousel>
         <img v-bind:src="title.HeadImage" class='model--image' margined v-if='onlyHeadImage' />
     </div>
-    <div class='sep'></div>
+    <div class='horizontal-spacer'></div>
     <a @click='close()'>
         <div class='close'>
             <i class="material-icons">close</i>
         </div>
     </a>
 
-    <div class='title'>
-        {{title.Name}}
+    <div class='content'>
+        <div class='info'>
+            <p>First Released: {{title.CreatedAt}}
+        </div>
+
+        <div class='description'>
+            <markdown :value='title.Description'></markdown>
+        </div>
     </div>
 </div>
 
@@ -81,9 +149,10 @@ var vmdl = require('vue-mdl')
 var card = vmdl.components['mdl-card']
 var button = vmdl.components['mdl-button']
 var ripple = vmdl.directives['mdl-ripple-effect']
+
 var carousel = require('vue-strap').carousel
 var slider = require('vue-strap').slider
-
+var markdown = require('./markdown')
 
 module.exports = {
 
@@ -104,12 +173,9 @@ module.exports = {
         hasRelease() {
                 return !!this.title.ReleaseVersion
             },
-            hasAppVeyor() {
-                return this.title.HasAppveyor
-            },
 
             onlyHeadImage() {
-                return typeof(this.title.Images) === 'undefined' || this.title.Images.length === 0
+                return typeof(this.title.Images) === 'undefined' || this.title.Images.length === 1
             },
 
             titleDebug() {
@@ -122,7 +188,8 @@ module.exports = {
         'mdl-card': card,
         'mdl-button': button,
         'carousel': carousel,
-        'slider': slider
+        'slider': slider,
+        'markdown': markdown
     },
     directives: {
         'mdl-ripple-effect': ripple

@@ -45,7 +45,7 @@ function goToByScroll(id) {
 function ExecuteExpanded(selectorId, forceResize) {
     //find the next div that starts after the end of this one
     var item = $('#' + selectorId)
-    var bottom = item.offset().top + item.height()
+    var bottom = item.offset().top
     var nextitem = Array.find(item.siblings(),
         function(e, i, a) {
             return $(e).offset().top > bottom
@@ -58,7 +58,12 @@ function ExecuteExpanded(selectorId, forceResize) {
     }
     //no next item
     else if (typeof(nextitem) === 'undefined') {
-        $('#gridexpander').insertAfter(item)
+        if (item.is(':last-child')) {
+            $('#gridexpander').insertAfter(item)
+        } else {
+            $('#gridexpander').insertAfter(item.siblings().last())
+        }
+
     } else {
         $('#gridexpander').insertBefore($(nextitem))
     }
