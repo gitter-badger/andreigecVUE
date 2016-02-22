@@ -2,7 +2,6 @@
 
 .section {
     @import "../styles/global.scss";
-    overflow: hidden;
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -13,14 +12,21 @@
     @media screen and (min-width: section-width(2)) and (max-width: section-width(3)) {
         width: section-width(2);
     }
+    .header-text {
+        overflow: hidden;
+    }
+
+    .clear {
+      clear:both
+    }
 }
 
 </style>
 
 <template>
-
-<div class='section'>
+<div class='section' class='js-grid-expander-after-this'>
     <slot name='header-text'></slot>
+    <div class="clear"></div>
     <titlepreview v-for="title in items" v-bind:title="title"></titlepreview>
 </div>
 

@@ -23,7 +23,7 @@
       </title-preview-expand>
   </div>
 </grid-expander>
-<home-carousel name="Featured Titles" v-bind:items="FeaturedTitles">
+<home-carousel name="Featured Titles" v-bind:items="FeaturedTitles" class='js-grid-expander-after-this'>
     <div slot='header-text' class='header-text'>
         <i class="material-icons">grade</i> Featured Titles
     </div>
@@ -89,7 +89,7 @@ module.exports = {
       'closePreview': function (msg) {
         this.selectedTitleId = -1
         this.selectedTitle = {}
-        this.$broadcast('closeTitlesExcept', -1)        
+        this.$broadcast('closeTitlesExcept', -1)
       },
         'selectedTitle': function(msg) {
             var titleId = msg.title.Id

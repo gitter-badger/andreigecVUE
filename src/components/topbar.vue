@@ -18,11 +18,11 @@ header {
     color: white;
     text-transform: inherit;
 }
+
 </style>
 
 <template>
 
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="custom-header mdl-layout__header mdl-layout__header--waterfall">
         <div class="mdl-layout__header-row">
             <!-- Title -->
@@ -68,7 +68,6 @@ header {
             <a class="mdl-navigation__link" href="">Link</a>
             <a class="mdl-navigation__link" href="">Link</a>
         </nav>
-    </div>
 </div>
 
 </template>

@@ -12,7 +12,7 @@
 <div class='section'>
     <slot name='header-text'></slot>
 
-    <carousel class="popular-carousel" v-bind:interval='0' :indicators=false v-if='items.length > 1'>
+    <carousel class="popular-carousel" v-bind:interval='0' :indicators=false v-if='items.length > 1' class='js-grid-expander-after-this'>
         <slider v-for="title in items">
             <titlepreview v-bind:title="title" margined v-bind:forceshow=true></titlepreview>
         </slider>
