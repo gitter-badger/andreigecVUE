@@ -10,12 +10,6 @@
     overflow: hidden;
 }
 
-.mdl-layout,
-.mdl-layout__container {
-    height: 0;
-    overflow:hidden;
-}
-
 </style>
 
 <template>

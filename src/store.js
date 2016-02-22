@@ -49,7 +49,7 @@ function GetAllData() {
 
 function SetData(item) {
 	item.HeadImage = (item.Images != null && item.Images.length >= 1) ? item.Images[0].URL : img
-	item.Images = (item.Images != null && item.Images.length > 1) ? item.Images.slice(1) : null
+	item.Images = (item.Images != null && item.Images.length > 0) ? item.Images : []
 	item.Link = '/Titles/Details/' + item.Name
 
 	var i = _.find(md.parse(item.Description), function (v) {
@@ -78,8 +78,8 @@ function setPopularAppData(data) {
 //false means add a firebase callback and add data to cache later
 function LocalStorageUsed(key, callback) {
 	var timeoutkey = key + '_timeout'
-	var timeout = localStorage.getItem(timeoutkey)
-	var item = JSON.parse(localStorage.getItem(key))
+	var timeout = sessionStorage.getItem(timeoutkey)
+	var item = JSON.parse(sessionStorage.getItem(key))
 	if (!item) {
 		return false
 	}
@@ -90,12 +90,12 @@ function LocalStorageUsed(key, callback) {
 		var diffseconds = 30 * 60 * 1000
 			//expire
 		if (diff > diffseconds) {
-			localStorage.setItem(timeoutkey, null)
+			sessionStorage.setItem(timeoutkey, null)
 			return false
 		}
 	}
 
-	localStorage.setItem(timeoutkey, new Date().getTime())
+	sessionStorage.setItem(timeoutkey, new Date().getTime())
 	callback(item)
 	return true
 }
@@ -106,7 +106,7 @@ function GetPopularData() {
 		var fireb = new Firebase(state.baseURL + 'Titles/Popular')
 		fireb.on('value', function (snapshot) {
 			setPopularAppData(snapshot.val())
-			localStorage.setItem(key, JSON.stringify(state.PopularTitles))
+			sessionStorage.setItem(key, JSON.stringify(state.PopularTitles))
 		})
 	}
 }
@@ -114,6 +114,11 @@ function GetPopularData() {
 
 //#region featured
 function setFeaturedAppData(data) {
+	if (data === null) {
+		return
+	}
+	console.log(data)
+
 	data.forEach(function (s) {
 		SetData(s)
 		state.FeaturedTitles.push(s)
@@ -126,7 +131,7 @@ function GetFeaturedData() {
 		var fireb = new Firebase(state.baseURL + 'Titles/Featured')
 		fireb.on('value', function (snapshot) {
 			setFeaturedAppData(snapshot.val())
-			localStorage.setItem(key, JSON.stringify(state.FeaturedTitles))
+			sessionStorage.setItem(key, JSON.stringify(state.FeaturedTitles))
 		})
 	}
 }
@@ -134,6 +139,10 @@ function GetFeaturedData() {
 
 //#region new
 function setNewAppData(data) {
+	if (data === null) {
+		return
+	}
+
 	data.forEach(function (s) {
 		SetData(s)
 		state.NewTitles.push(s)
@@ -146,7 +155,7 @@ function GetNewData() {
 		var fireb = new Firebase(state.baseURL + 'Titles/New')
 		fireb.on('value', function (snapshot) {
 			setNewAppData(snapshot.val())
-			localStorage.setItem(key, JSON.stringify(state.NewTitles))
+			sessionStorage.setItem(key, JSON.stringify(state.NewTitles))
 		})
 	}
 }
@@ -154,6 +163,10 @@ function GetNewData() {
 
 //#region list
 function SetListData(data) {
+	if (data === null) {
+		return
+	}
+
 	for (var key in data) {
 		SetData(data[key])
 		state.TitlesList.push(data[key])
@@ -167,13 +180,13 @@ function SetListData(data) {
 
 function GetListData() {
 	var key = 'list'
-	if (localStorage.getItem(key)) {
-		SetListData(JSON.parse(localStorage.getItem(key)))
+	if (sessionStorage.getItem(key)) {
+		SetListData(JSON.parse(sessionStorage.getItem(key)))
 	} else {
 		var fireb = new Firebase(state.baseURL + 'Titles/List')
 		fireb.on('value', function (snapshot) {
 			SetListData(snapshot.val())
-			localStorage.setItem(key, JSON.stringify(state.TitlesList))
+			sessionStorage.setItem(key, JSON.stringify(state.TitlesList))
 		})
 	}
 	//#endregion list

@@ -32,7 +32,7 @@ var $ = require('jquery')
     //var _ = require('underscore')
 var lastSelectorId = -1
 $(window).resize(function() {
-    ExecuteExpanded(lastSelectorId, true)
+    SetGridPosition(lastSelectorId, true)
 })
 
 function goToByScroll(id) {
@@ -105,7 +105,7 @@ module.exports = {
         'selectorId': function(val, oldVal) {
             this.expanded = false
             if (this.selectorId === -1) {
-              $('#gridexpander').insertAfter('body')
+                $('#gridexpander').insertAfter('body')
                 return
             }
 
