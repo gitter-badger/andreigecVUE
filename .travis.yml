@@ -1,6 +1,9 @@
 language: node_js
 node_js:
 - 5.1.0
+branches:
+  only:
+    - TRAVIS
 before_install:
 install:
 - npm config set loglevel=warn&&npm config set loglevel=warn
