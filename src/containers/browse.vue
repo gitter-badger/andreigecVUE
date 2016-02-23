@@ -16,11 +16,19 @@
 
 <template>
 
-<title-preview-section v-bind:items="Titles">
-    <div slot='header-text' class='header-text'>
-        <i class="material-icons">favorite</i> {{TitlesText}}
+<grid-expander :selector-id.sync='selectedTitleId'>
+    <div slot='content'>
+        <title-preview-expand :title.sync='selectedTitle'>
+
+        </title-preview-expand>
     </div>
-</title-preview-section>
+</grid-expander>
+
+    <title-preview-section v-bind:items="Titles">
+        <div slot='header-text' class='header-text'>
+            <i class="material-icons">favorite</i> {{TitlesText}}
+        </div>
+    </title-preview-section>
 
 </template>
 
@@ -31,12 +39,22 @@ var titlepreviewsection = require('../components/title-preview-section')
 var hc = require('../components/home-carousel')
 var vmdl = require('vue-mdl')
 var ripple = vmdl.directives['mdl-ripple-effect']
+var ge = require('../components/grid-expander')
+var tpe = require('../components/title-preview-expand')
 
 module.exports = {
+    data: function() {
+        return {
+            selectedTitleId: -1,
+            selectedTitle: {}
+        }
+    },
 
     components: {
         'title-preview-section': titlepreviewsection,
-        'home-carousel': hc
+        'home-carousel': hc,
+        'grid-expander': ge,
+        'title-preview-expand': tpe
     },
 
     directives: {
@@ -60,6 +78,27 @@ module.exports = {
 
                 return 'Applications'
             }
+    },
+
+    events: {
+        'closePreview': function(msg) {
+            this.selectedTitleId = -1
+            this.selectedTitle = {}
+            this.$broadcast('closeTitlesExcept', -1)
+        },
+        'selectedTitle': function(msg) {
+            var titleId = msg.title.Id
+            var title = msg.title
+            var expanded = msg.expanded
+            this.$broadcast('closeTitlesExcept', titleId)
+            if (expanded) {
+                this.selectedTitleId = titleId
+                this.selectedTitle = title
+            } else {
+                this.selectedTitleId = -1
+                this.selectedTitle = {}
+            }
+        }
     }
 }
 

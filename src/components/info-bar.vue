@@ -20,18 +20,15 @@ $noColourSelected: darken($noColour, 10%);
 
 ul {
     list-style: none;
-    height: 40px;
     padding: 0;
     background: #f4f4f4;
     border-radius: 5px;
     border: 1px solid #e0e0e0;
     margin: 0;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    border:0;
     li {
         width: 89px;
         float: left;
-        height: 40px;
         border: 0;
     }
     .sub-item {
@@ -78,7 +75,7 @@ ul {
     <div>
         <ul>
             <li><a target='_blank' class='sub-item' href="{{title.ReleaseURL}}" v-bind:class="hasRelease ? '' : 'no-item'">Download <strong>Binary</strong></a></li>
-            <li><a target='_blank' class='sub-item' href="{{title.GHPageURL}}">View On <strong>GitHub</strong></a></li>           
+            <li><a target='_blank' class='sub-item' href="{{title.GHPageURL}}">View On <strong>GitHub</strong></a></li>
 
         </ul>
     </div>

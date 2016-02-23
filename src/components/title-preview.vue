@@ -1,11 +1,13 @@
 <style lang='sass' scoped>
+
 @import "../styles/variables.scss";
 $gray: rgb(80, 80, 80);
 .title-preview {
-    @import "../styles/variables.scss";
     color: black;
     width: $cardWidth + px;
     position: relative;
+    overflow: inherit;
+    z-index: 2;
     &.margined {
         margin-left: auto;
         margin-right: auto;
@@ -69,6 +71,12 @@ $gray: rgb(80, 80, 80);
     .grayscale {
         filter: grayscale(100%);
     }
+    .triangle {
+        top: 36px;
+        left: 50%;
+        transform: rotate(180deg);
+        border-bottom: 10px solid white;
+    }
 }
 
 </style>
@@ -89,7 +97,9 @@ $gray: rgb(80, 80, 80);
 
     <div slot="actions" class='action-box'>
         <info-bar v-bind:title='title' :expanded.sync='expanded'></info-bar>
+        <div class='triangle' v-if='expanded'> </div>
     </div>
+
 </mdl-card>
 
 </div>
@@ -121,6 +131,9 @@ module.exports = {
             }
         },
         truncate: function(str, length, truncation) {
+            if (typeof(str) === 'undefined') {
+                return
+            }
             length = length || 30
             truncation = _.isUndefined(truncation) ? '...' : truncation
             return str.length > length ? str.slice(0, length - truncation.length) + truncation : String(str)

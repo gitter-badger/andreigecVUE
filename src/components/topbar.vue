@@ -23,51 +23,51 @@ header {
 
 <template>
 
-    <header class="custom-header mdl-layout__header mdl-layout__header--waterfall">
-        <div class="mdl-layout__header-row">
-            <!-- Title -->
-            <a class='title' v-link="{ path: '/', exact: true}">
+<header class="custom-header mdl-layout__header mdl-layout__header--waterfall">
+    <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <a class='title' v-link="{ path: '/', exact: true}">
+            <mdl-button colored v-mdl-ripple-effect>
+                <div class='title'>TESTRESAS.TES</div>
+            </mdl-button>
+        </a>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a href='https://s3-ap-southeast-2.amazonaws.com/andreigec/CV/AndreiGecCV.doc' target="_blank">
                 <mdl-button colored v-mdl-ripple-effect>
-                    <div class='title'>TESTRESAS.TES</div>
+                    <div class='item'>CV</div>
                 </mdl-button>
             </a>
-            <div class="mdl-layout-spacer"></div>
-            <nav class="mdl-navigation mdl-layout--large-screen-only">
-                <a href='https://s3-ap-southeast-2.amazonaws.com/andreigec/CV/AndreiGecCV.doc' target="_blank">
-                    <mdl-button colored v-mdl-ripple-effect>
-                        <div class='item'>CV</div>
-                    </mdl-button>
-                </a>
-                <a class='mdl-navigation__link' v-link="{ path: '/Titles/Browse/Games', exact: true}">
-                    <mdl-button colored v-mdl-ripple-effect>
-                        <div class='item'>Games</div>
-                    </mdl-button>
-                </a>
-                <a class='mdl-navigation__link' v-link="{ path: '/Titles/Browse/Applications', exact: true}">
-                    <mdl-button colored v-mdl-ripple-effect>
-                        <div class='item'>Applications</div>
-                    </mdl-button>
-                </a>
+            <a class='mdl-navigation__link' v-link="{ path: '/Titles/Browse/Games', exact: true}">
+                <mdl-button colored v-mdl-ripple-effect>
+                    <div class='item'>Games</div>
+                </mdl-button>
+            </a>
+            <a class='mdl-navigation__link' v-link="{ path: '/Titles/Browse/Applications', exact: true}">
+                <mdl-button colored v-mdl-ripple-effect>
+                    <div class='item'>Applications</div>
+                </mdl-button>
+            </a>
 
 
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
                   mdl-textfield--floating-label mdl-textfield--align-right">
-                    <mdl-textfield id="demo-expandable-button" expandable="search"></mdl-textfield>
+                <mdl-textfield id="demo-expandable-button" expandable="search"></mdl-textfield>
 
-                </div>
+            </div>
 
 
-            </nav>
-        </div>
-    </header>
-    <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Sidebar Menu</span>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
         </nav>
+    </div>
+</header>
+<div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Sidebar Menu</span>
+    <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+    </nav>
 </div>
 
 </template>

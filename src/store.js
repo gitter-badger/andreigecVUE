@@ -1,5 +1,5 @@
 var _ = require('underscore-node')
-var marked = require('marked')
+var md = require('markdown').markdown
 
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -51,8 +51,7 @@ function SetData(item) {
 	item.HeadImage = (item.Images != null && item.Images.length >= 1) ? item.Images[0].URL : img
 	item.Images = (item.Images != null && item.Images.length > 0) ? item.Images : []
 	item.Link = '/Titles/Details/' + item.Name
-
-	var i = _.find(marked(item.Description, {sanatize: true, gfm: true}), function (v) {
+	var i = _.find(md.parse(item.Description), function (v) {
 		if (v[0] === 'para' && v.length >= 2) {
 			return true
 		}

@@ -1,11 +1,12 @@
 <style lang='sass' scoped >
-@import "../styles/variables.scss";
 
+@import "../styles/variables.scss";
 .section {
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
     max-width: section-width(3);
+    z-index: 2;
     @media screen and (max-width: section-width(2)) {
         width: section-width(1);
     }
@@ -20,6 +21,7 @@
 </style>
 
 <template>
+
 <div class='section' class='js-grid-expander-after-this'>
     <slot name='header-text'></slot>
     <div class="clear"></div>

@@ -100,10 +100,6 @@ $detailsCardWidth: 500px;
         </div>
 </div>
 
-<div slot="supporting-text" class='text caption'>
-    <p v-text='titleDetails.DescriptionText'></p>
-</div>
-
 </mdl-card>
 
 details

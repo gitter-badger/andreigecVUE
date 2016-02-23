@@ -11,22 +11,19 @@
     top: 4px;
     position: relative;
 }
-.carousel-inner {
-    @extend .centered;
-    overflow: hidden;
-}
 
 </style>
 
 <template>
 
 <grid-expander :selector-id.sync='selectedTitleId'>
-
   <div slot='content'>
-      <title-preview-expand :title.sync='selectedTitle'></title-preview-expand>
+      <title-preview-expand :title.sync='selectedTitle'>
+
+      </title-preview-expand>
   </div>
 </grid-expander>
-<home-carousel name="Featured Titles" v-bind:items="FeaturedTitles" class='js-grid-expander-after-this'>
+<home-carousel name="Featured Titles" v-bind:items="FeaturedTitles">
     <div slot='header-text' class='header-text'>
         <i class="material-icons">grade</i> Featured Titles
     </div>

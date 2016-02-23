@@ -12,7 +12,7 @@
 <div class='section'>
     <slot name='header-text'></slot>
 
-    <carousel class="popular-carousel" v-bind:interval='0' :indicators=false v-if='items.length > 1' class='js-grid-expander-after-this'>
+    <carousel class="js-grid-expander-after-this popular-carousel" v-bind:interval='0' :indicators=false v-if='items.length > 1'>
         <slider v-for="title in items">
             <titlepreview v-bind:title="title" margined v-bind:forceshow=true></titlepreview>
         </slider>
@@ -61,12 +61,12 @@ module.exports = {
         'mdl-ripple-effect': ripple
     },
     events: {
-      'selectedTitle': function(msg) {
-      return true
-      },
-      'closeTitlesExcept': function(msg) {
-          return true
-      }
+        'selectedTitle': function(msg) {
+            return true
+        },
+        'closeTitlesExcept': function(msg) {
+            return true
+        }
     }
 }
 

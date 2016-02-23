@@ -1,12 +1,11 @@
 <style lang='sass'>
-@import "styles/global.scss";
-</style>
 
-<style lang='sass' scoped>
-#content {
+@import "styles/global.scss";
+</style> <style lang='sass' scoped> #content {
     padding-top: 80px;
     overflow: hidden;
 }
+
 </style>
 
 <template>
@@ -45,9 +44,10 @@ export default {
     },
     data: function() {
         return {
-          'backgroundImage': {
-            'background-image': 'url(' + bg + ')',
-            'background-color': 'rgb(180, 200, 200)'}
+            'backgroundImage': {
+                'background-image': 'url(' + bg + ')',
+                'background-color': 'rgb(180, 200, 200)'
+            }
         }
     }
 }

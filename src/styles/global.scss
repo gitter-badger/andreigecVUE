@@ -38,3 +38,11 @@ a {
 .content {
   white-space: inherit !important;
 }
+.triangle {
+  border-bottom: 10px solid #222;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  height: 0;
+  position: absolute;
+  width: 0;
+}

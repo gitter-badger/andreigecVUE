@@ -10,7 +10,7 @@
 <script>
 
 var marked = require('marked')
-//var $ = require('jquery')
+    //var $ = require('jquery')
 marked.setOptions({
     sanatize: true,
     gfm: true
@@ -26,10 +26,10 @@ module.exports = {
     },
 
     ready: function() {
-      var p = this
+        var p = this
         marked(this.value, function(err, content) {
             if (err) throw err
-          p.$el.innerHTML = content
+            p.$el.innerHTML = content
         })
     }
 }

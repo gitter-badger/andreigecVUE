@@ -35,7 +35,7 @@
             }
         }
         img {
-          display:none;
+            display: none;
         }
     }
 }
@@ -54,7 +54,7 @@ $paddingTop: 10px;
     @media screen and (min-width: section-width(2)) and (max-width: section-width(3)) {
         height: 400px;
     }
-    @media screen and (min-width: section-width(3)) and (max-width: section-width(4)) {
+    @media screen and (min-width: section-width(3)) {
         height: 600px;
     }
     .model--image {
@@ -112,7 +112,6 @@ $paddingTop: 10px;
 <template>
 
 <div class='preview'>
-
     <div class='image-left'>
         <carousel class="image-carousel" v-bind:interval='0' :indicators=false v-if='!onlyHeadImage' class='js-grid-expander-after-this'>
             <slider v-for="img in title.Images">
@@ -136,7 +135,7 @@ $paddingTop: 10px;
         </div>
 
         <div class='description'>
-            <markdown :value='title.Description'></markdown>
+            <markdown :value='Description'></markdown>
         </div>
     </div>
 </div>
@@ -181,6 +180,11 @@ module.exports = {
             titleDebug() {
                 var s = JSON.stringify(this.title)
                 return s
+            },
+
+            Description() {
+              var d = typeof(this.title.Description) === 'undefined' ? '' : this.title.Description
+              return d
             }
     },
 

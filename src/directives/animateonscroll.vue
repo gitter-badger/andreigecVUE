@@ -188,7 +188,7 @@ module.exports = {
         var t = this
 
         if (t.params.forceshow) {
-          return
+            return
         }
 
         var mind = t.params.minduration
