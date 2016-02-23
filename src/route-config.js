@@ -26,5 +26,4 @@ export function configRouter(router) {
 			component: require('./components/not-found.vue')
 		}
 	})
-
 }
