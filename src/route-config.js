@@ -1,15 +1,19 @@
 var Home = require('./containers/home')
-var TitleDetails = require('./containers/details')
 var Browse = require('./containers/browse')
 var navyseal = require('./containers/navyseal')
 export function configRouter(router) {
+
+	// router.beforeEach(function (transition) {
+	// 	window.scrollTo(0, 0)
+	// 	transition.next()
+	// })
 
 	router.map({
 		'/': {
 			component: Home
 		},
 		'/Titles/Details/:titleName': {
-			component: TitleDetails
+			component: Home
 		},
 		'Titles/Browse/:category': {
 			component: Browse
@@ -21,10 +25,6 @@ export function configRouter(router) {
 		'*': {
 			component: require('./components/not-found.vue')
 		}
-	})
-	router.beforeEach(function (transition) {
-		window.scrollTo(0, 0)
-		transition.next()
 	})
 
 }

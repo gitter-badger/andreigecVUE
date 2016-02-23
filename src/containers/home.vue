@@ -17,11 +17,11 @@
 <template>
 
 <grid-expander :selector-id.sync='selectedTitleId'>
-  <div slot='content'>
-      <title-preview-expand :title.sync='selectedTitle'>
+    <div slot='content'>
+        <title-preview-expand :title.sync='selectedTitle'>
 
-      </title-preview-expand>
-  </div>
+        </title-preview-expand>
+    </div>
 </grid-expander>
 <home-carousel name="Featured Titles" v-bind:items="FeaturedTitles">
     <div slot='header-text' class='header-text'>
@@ -70,7 +70,8 @@ module.exports = {
     data: function() {
         return {
             selectedTitleId: -1,
-            selectedTitle: {}
+            selectedTitle: {},
+            titleFromURL: {}
         }
     },
     computed: {
@@ -82,20 +83,48 @@ module.exports = {
             },
             NewTitles() {
                 return store.default.state.NewTitles
+            },
+
+            RouteTitleName() {
+                return this.$route.params.titleName
             }
     },
 
+    methods: {
+        TitleRoute: function(titleName) {
+            if (typeof(titleName) === 'undefined') {
+                return
+            }
+            var t = store.default.actions.GetDetails(titleName)
+
+            if (typeof(t) === 'undefined') {
+                location.href = '/'
+            }
+
+            this.selectedTitle = t
+            this.selectedTitleId = t.Id
+
+            //open title
+            var d = {
+                Id: t.Id,
+                expanded: true
+            }
+            this.$broadcast('titleSelection', d)
+        }
+    },
+
     events: {
-      'closePreview': function (msg) {
-        this.selectedTitleId = -1
-        this.selectedTitle = {}
-        this.$broadcast('closeTitlesExcept', -1)
-      },
+        //up
+        //set status for all title info boxes
         'selectedTitle': function(msg) {
             var titleId = msg.title.Id
             var title = msg.title
             var expanded = msg.expanded
-            this.$broadcast('closeTitlesExcept', titleId)
+            var d = {
+                Id: titleId,
+                expanded: expanded
+            }
+            this.$broadcast('titleSelection', d)
             if (expanded) {
                 this.selectedTitleId = titleId
                 this.selectedTitle = title
@@ -103,6 +132,21 @@ module.exports = {
                 this.selectedTitleId = -1
                 this.selectedTitle = {}
             }
+        }
+    },
+
+    ready: function() {
+        var name = this.$route.params.titleName
+        if (typeof(name) === 'undefined') {
+            return
+        }
+
+        this.TitleRoute(name)
+    },
+
+    watch: {
+        'RouteTitleName': function(val, oldVal) {
+            this.TitleRoute(val)
         }
     }
 }

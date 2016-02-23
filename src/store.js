@@ -116,7 +116,6 @@ function setFeaturedAppData(data) {
 	if (data === null) {
 		return
 	}
-	console.log(data)
 
 	data.forEach(function (s) {
 		SetData(s)

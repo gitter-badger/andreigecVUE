@@ -164,7 +164,10 @@ module.exports = {
 
     methods: {
         close: function() {
-            this.$dispatch('closePreview', {})
+            this.$dispatch('selectedTitle', {
+                title: this.title,
+                expanded: false
+            })
         }
     },
 

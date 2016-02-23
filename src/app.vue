@@ -31,7 +31,6 @@
 </template>
 
 <script>
-
 var routerView = require('vue-router')
 var topbar = require('./components/topbar')
 var bg = require('./assets/bg.jpg')

@@ -5,6 +5,7 @@
     float: left;
     top: -15px;
     position: relative;
+    z-index: 1;
     .content {
         height: 100%;
         width: 100%;
@@ -69,8 +70,11 @@ function ExecuteExpanded(selectorId, forceResize) {
     }
 
     SetGridPosition(forceResize)
+    if (lastSelectorId !== -1) {
         //scroll screen
-    goToByScroll(selectorId)
+        goToByScroll(selectorId)
+    }
+
 
     lastSelectorId = selectorId
     return true

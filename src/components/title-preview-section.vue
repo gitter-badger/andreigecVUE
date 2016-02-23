@@ -56,10 +56,12 @@ module.exports = {
         'mdl-ripple-effect': ripple
     },
     events: {
+      //up
         'selectedTitle': function(msg) {
             return true
         },
-        'closeTitlesExcept': function(msg) {
+        //down
+        'titleSelection': function(msg) {
             return true
         }
     }

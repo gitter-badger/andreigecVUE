@@ -78,28 +78,28 @@ module.exports = {
 
                 return 'Applications'
             }
-    },
-
-    events: {
-        'closePreview': function(msg) {
-            this.selectedTitleId = -1
-            this.selectedTitle = {}
-            this.$broadcast('closeTitlesExcept', -1)
-        },
-        'selectedTitle': function(msg) {
-            var titleId = msg.title.Id
-            var title = msg.title
-            var expanded = msg.expanded
-            this.$broadcast('closeTitlesExcept', titleId)
-            if (expanded) {
-                this.selectedTitleId = titleId
-                this.selectedTitle = title
-            } else {
-                this.selectedTitleId = -1
-                this.selectedTitle = {}
-            }
-        }
     }
+
+    // events: {
+    //     // 'closePreview': function(msg) {
+    //     //     this.selectedTitleId = -1
+    //     //     this.selectedTitle = {}
+    //     //     this.$broadcast('closeTitlesExcept', -1)
+    //     // },
+    //     'selectedTitle': function(msg) {
+    //         var titleId = msg.title.Id
+    //         var title = msg.title
+    //         var expanded = msg.expanded
+    //         this.$broadcast('closeTitlesExcept', titleId)
+    //         if (expanded) {
+    //             this.selectedTitleId = titleId
+    //             this.selectedTitle = title
+    //         } else {
+    //             this.selectedTitleId = -1
+    //             this.selectedTitle = {}
+    //         }
+    //     }
+    // }
 }
 
 </script>

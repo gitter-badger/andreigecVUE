@@ -48,6 +48,7 @@ $gray: rgb(80, 80, 80);
             bottom: 0;
             margin: 0 0 0 5px;
             height: 70px;
+            overflow: hidden;
         }
         &.view-title {
             font-size: 20px;
@@ -165,10 +166,12 @@ module.exports = {
         margined: Boolean
     },
     events: {
+      //up
         'selectedTitle': function(msg) {
             return true
         },
-        'closeTitlesExcept': function(msg) {
+        //down
+        'titleSelection': function(msg) {
             return true
         }
     },

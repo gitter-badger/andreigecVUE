@@ -15,6 +15,11 @@ $noColourSelected: darken($noColour, 10%);
         .expanded {
             background-color: red;
         }
+        padding: 1px;
+        border-radius: 2px;
+    }
+    .i-button {
+        height: 35px;
     }
 }
 
@@ -25,7 +30,7 @@ ul {
     border-radius: 5px;
     border: 1px solid #e0e0e0;
     margin: 0;
-    border:0;
+    border: 0;
     li {
         width: 89px;
         float: left;
@@ -66,7 +71,7 @@ ul {
 
 <div class='info-bar'>
     <div>
-        <mdl-button colored v-mdl-ripple-effect v-on:click='toggleExpanded()' v-bind:class='expanded ? "expanded" : ""'>
+        <mdl-button class='i-button' colored v-mdl-ripple-effect v-on:click='toggleExpanded()' v-bind:class='expanded ? "expanded" : ""'>
             <div class='text view-title'>
                 <i class="material-icons">info</i></div>
         </mdl-button>
@@ -107,6 +112,7 @@ module.exports = {
     methods: {
         toggleExpanded: function() {
             this.expanded = !this.expanded
+            //up
             this.$dispatch('selectedTitle', {
                 title: this.title,
                 expanded: this.expanded
@@ -124,11 +130,19 @@ module.exports = {
     },
 
     events: {
-        'closeTitlesExcept': function(msg) {
-            if (this.expanded === false || this.title.Id === msg) {
-                return false
+        //down
+        'titleSelection': function(msg) {
+            var expanded = msg.expanded
+            var tid = msg.Id
+
+            //either a match and already same status, or not a match and already closed
+            if ((this.title.Id === tid && this.expanded === expanded) ||
+                (this.title.Id !== tid && this.expanded === false)) {
+                return
             }
-            this.expanded = false
+
+            //if id match, set expanded ,otherwise opposite
+            this.expanded = this.title.Id === tid ? expanded : !expanded
         }
     },
 
