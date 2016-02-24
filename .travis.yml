@@ -4,7 +4,6 @@ node_js:
 branches:
   only:
     - TRAVIS
-before_install:
 install:
 - npm config set loglevel=warn&&npm config set loglevel=warn
 - git config core.autocrlf false
@@ -33,6 +32,5 @@ deploy:
   local-dir: dist
   detect_encoding: true
   on:
-    branch: TRAVIS
     repo: andreigec/andreigecVUE
-	
+    branch: TRAVIS
