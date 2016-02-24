@@ -2,3 +2,4 @@ node_modules/
 dist/
 build/reports/
 test/unit/reports
+npm-debug.log
