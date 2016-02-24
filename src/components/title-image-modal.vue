@@ -4,7 +4,7 @@
 
 <div :show.sync="showImageModal">
     <div slot="header">
-        <div class='model--header'>Images for {{titleDetails.Name}}</div>
+        <div class='model--header'>Images for {{titleDetails.DisplayName}}</div>
     </div>
     <div slot="body">
         <carousel class="image-carousel" :interval="0" :indicators=false>

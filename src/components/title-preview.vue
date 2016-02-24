@@ -91,7 +91,7 @@ $gray: rgb(80, 80, 80);
     <div slot="title" class='slot title-image' v-bind:style='title.HeadImage | generateImageStyle'>
         <a v-link="{ path: '/Titles/Details/' + title.Name }">
             <mdl-button colored v-mdl-ripple-effect class='text title'>
-                {{title.Name}}</div>
+                {{title.DisplayName}}</div>
     </a>
     </div>
 
