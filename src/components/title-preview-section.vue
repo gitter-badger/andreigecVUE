@@ -5,13 +5,17 @@
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
-    max-width: section-width(3);
+    max-width: 100%;
     z-index: 2;
     @media screen and (max-width: section-width(2)) {
         width: section-width(1);
     }
     @media screen and (min-width: section-width(2)) and (max-width: section-width(3)) {
         width: section-width(2);
+    }
+
+    @media screen and (min-width: section-width(3)) {
+        width: section-width(3);
     }
     .header-text {
         overflow: hidden;

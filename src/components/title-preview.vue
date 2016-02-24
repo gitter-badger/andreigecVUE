@@ -5,6 +5,8 @@ $gray: rgb(80, 80, 80);
 .title-preview {
     color: black;
     width: $cardWidth + px;
+    max-width:90%;
+
     position: relative;
     overflow: inherit;
     z-index: 2;
@@ -14,10 +16,10 @@ $gray: rgb(80, 80, 80);
         margin-top: 15px;
         margin-bottom: 15px;
         float: none;
-        @media screen and (max-width: section-width(1)) {
-            margin-left: 0;
-            margin-right: 0;
-        }
+        // @media screen and (max-width: section-width(1)) {
+        //     margin-left: 0;
+        //     margin-right: 0;
+        // }
     }
     &.floatleft {
         @media screen and (min-width: section-width(2)) {
