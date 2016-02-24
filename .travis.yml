@@ -20,8 +20,6 @@ before_deploy:
 - npm run build
 after_success: "cat ./build/reports/report-lcovonly.txt | ./node_modules/coveralls/bin/coveralls.js"
 deploy:
-   on:
-    branch: TRAVIS
   provider: s3
   edge: true
   access_key_id: AKIAJCW67P5GDNOV6HIA
@@ -35,4 +33,6 @@ deploy:
   local-dir: dist
   detect_encoding: true
   on:
+    branch: TRAVIS
     repo: andreigec/andreigecVUE
+	
