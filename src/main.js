@@ -5,8 +5,6 @@ import {
 }
 from './route-config'
 require('babel-polyfill')
-var store = require('./store')
-store.default.actions.GetAllData()
 var App = require('./app')
 
 // install router

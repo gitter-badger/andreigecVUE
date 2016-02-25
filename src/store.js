@@ -11,23 +11,27 @@ const state = {
 	baseURL: 'https://intense-inferno-4020.firebaseio.com/Backgrounder/Website/',
 	PopularTitles: [],
 	TitlesList: [],
+	HasListData: false,
+	GettingListData: false,
 	TitlesListGames: [],
 	TitlesListApplications: [],
 	NewTitles: [],
-	FeaturedTitles: [],
-	newTodo: '',
-	editedTodo: null,
-	visibility: 'all'
+	FeaturedTitles: []
 }
 
 const actions = {
-	GetAllData: GetAllData,
+	GetAllData: ({dispatch, state	}, resolve) => { GetAllData(resolve) },
 	GetDetails: ({
 		dispatch, state
 	}, titleName) => {
+		console.log('find:' + titleName)
+		console.log('tl:' + state.TitlesList.length)
 		var t = _.where(state.TitlesList, {
 			Name: titleName
 		})
+		if (t.length !== 1) {
+			return null
+		}
 		return t[0]
 	}
 }
@@ -40,11 +44,27 @@ export default new Vuex.Store({
 	mutations
 })
 
-function GetAllData() {
+// function DataLoaded() {
+// 	return state.TitlesList.length > 0
+// }
+
+function GetAllData(resolve) {
+	console.log('res2=')
+	console.log(resolve)
+
+	if (state.HasListData) {
+		resolve('already have')
+	}
+
+	if (state.GettingListData) {
+		return
+	}
+
 	GetFeaturedData()
 	GetPopularData()
 	GetNewData()
-	GetListData()
+	GetListData(resolve)
+	state.GettingListData = true
 }
 
 function SetData(item) {
@@ -102,7 +122,9 @@ function LocalStorageUsed(key, callback) {
 function GetPopularData() {
 	var key = 'popular'
 	if (!LocalStorageUsed(key, setPopularAppData)) {
-		var fireb = new Firebase(state.baseURL + 'Titles/Popular')
+		var url = state.baseURL + 'Titles/Popular'
+		console.log('popular:' + url)
+		var fireb = new Firebase(url)
 		fireb.on('value', function (snapshot) {
 			setPopularAppData(snapshot.val())
 			sessionStorage.setItem(key, JSON.stringify(state.PopularTitles))
@@ -126,7 +148,9 @@ function setFeaturedAppData(data) {
 function GetFeaturedData() {
 	var key = 'featured'
 	if (!LocalStorageUsed(key, setFeaturedAppData)) {
-		var fireb = new Firebase(state.baseURL + 'Titles/Featured')
+		var url = state.baseURL + 'Titles/Featured'
+		console.log('featured=' + url)
+		var fireb = new Firebase(url)
 		fireb.on('value', function (snapshot) {
 			setFeaturedAppData(snapshot.val())
 			sessionStorage.setItem(key, JSON.stringify(state.FeaturedTitles))
@@ -150,7 +174,9 @@ function setNewAppData(data) {
 function GetNewData() {
 	var key = 'new'
 	if (!LocalStorageUsed(key, setNewAppData)) {
-		var fireb = new Firebase(state.baseURL + 'Titles/New')
+		var url = state.baseURL + 'Titles/New'
+		console.log('new=' + url)
+		var fireb = new Firebase(url)
 		fireb.on('value', function (snapshot) {
 			setNewAppData(snapshot.val())
 			sessionStorage.setItem(key, JSON.stringify(state.NewTitles))
@@ -176,15 +202,23 @@ function SetListData(data) {
 	}
 }
 
-function GetListData() {
+function GetListData(resolve) {
+console.log('res=')
+console.log(resolve)
 	var key = 'list'
 	if (sessionStorage.getItem(key)) {
 		SetListData(JSON.parse(sessionStorage.getItem(key)))
+		resolve('get cache')
 	} else {
-		var fireb = new Firebase(state.baseURL + 'Titles/List')
+		var url = state.baseURL + 'Titles/List'
+		console.log('list=' + url)
+		var fireb = new Firebase(url)
 		fireb.on('value', function (snapshot) {
 			SetListData(snapshot.val())
 			sessionStorage.setItem(key, JSON.stringify(state.TitlesList))
+			console.log('get2')
+			state.HasListData = true
+			resolve('ok')
 		})
 	}
 	//#endregion list
