@@ -32,9 +32,11 @@ var ripple = vmdl.directives['mdl-ripple-effect']
 var $ = require('jquery')
     //var _ = require('underscore')
 var lastSelectorId = -1
+if ($('.gridexpander').length !== 0) {
 $(window).resize(function() {
     SetGridPosition(lastSelectorId, true)
 })
+}
 
 function goToByScroll(id) {
     $('html,body').animate({
@@ -116,6 +118,9 @@ module.exports = {
     },
     watch: {
         'selectorId': function(val, oldVal) {
+          if ($('#gridexpander').length === 0) {
+            return
+          }
             this.expanded = false
             if (this.selectorId === -1) {
                 $('#gridexpander').insertAfter('body')

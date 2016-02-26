@@ -1,11 +1,12 @@
 <style lang='sass'>
-
 @import "styles/global.scss";
-</style> <style lang='sass' scoped> #content {
+</style>
+
+<style lang='sass' scoped>
+.router-content {
     padding-top: 80px;
     overflow: hidden;
 }
-
 </style>
 
 <template>
@@ -22,7 +23,7 @@
 
         <top-bar></top-bar>
 
-        <div >
+        <div class="router-content">
             <router-view>
             </router-view>
         </div>
