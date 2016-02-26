@@ -7,9 +7,9 @@ export function configRouter(router) {
 
 
 	 router.beforeEach(function (transition) {
-		 new Promise(function(resolve, reject)
+		 new Promise(function(resolve)
 		 {
-			 store.default.actions.GetAllData(resolve, reject)
+			 store.default.actions.GetData(resolve)
 		 }).then(function(data) {
 			 transition.next()
 		 })

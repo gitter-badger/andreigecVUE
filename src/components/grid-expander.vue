@@ -1,6 +1,6 @@
 <style lang='sass' scoped>
 
-.grid-expander {
+#grid-expander {
     width: 100%;
     float: left;
     top: -15px;
@@ -17,7 +17,7 @@
 
 <template>
 
-<div id='gridexpander' class='grid-expander'>
+<div id='gridexpander'>
     <slot name='content' v-if='expanded'></slot>
 </div>
 
@@ -46,6 +46,10 @@ function goToByScroll(id) {
 function ExecuteExpanded(selectorId, forceResize) {
     //find the next div that starts after the end of this one
     var item = $('#' + selectorId)
+    if (item.length === 0) {
+      console.log('warning - item couldnt be found:' + selectorId)
+      return
+    }
     var bottom = item.offset().top
     var nextitem = Array.find(item.siblings(),
         function(e, i, a) {
