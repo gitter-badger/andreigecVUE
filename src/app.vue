@@ -22,7 +22,7 @@
 
         <top-bar></top-bar>
 
-        <div id="content">
+        <div >
             <router-view>
             </router-view>
         </div>

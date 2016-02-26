@@ -27,7 +27,7 @@ var slider = require('vue-strap').slider
 var vmdl = require('vue-mdl')
 var card = vmdl.components['mdl-card']
 
-var _ = require('underscore-node')
+//var _ = require('underscore-node')
 
 module.exports = {
     props: {

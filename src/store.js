@@ -1,4 +1,3 @@
-var _ = require('underscore-node')
 var md = require('markdown').markdown
 
 import Vue from 'vue'
@@ -9,49 +8,125 @@ var img = require('./assets/500x200.png')
 
 const state = {
 	baseURL: 'https://intense-inferno-4020.firebaseio.com/Backgrounder/Website/',
-	PopularTitles: [],
 	TitlesList: [],
+	HasListData: false,
+	GettingListData: false,
+
+	PopularTitles: [],
+
 	TitlesListGames: [],
 	TitlesListApplications: [],
 	NewTitles: [],
-	FeaturedTitles: [],
-	newTodo: '',
-	editedTodo: null,
-	visibility: 'all'
+	FeaturedTitles: []
 }
 
 const actions = {
-	GetAllData: GetAllData,
+	GetData: ({
+		dispatch, state
+	}, resolve) => {
+		GetData(resolve)
+	},
 	GetDetails: ({
 		dispatch, state
 	}, titleName) => {
-		var t = _.where(state.TitlesList, {
-			Name: titleName
-		})
-		return t[0]
+		var t = GetTitleFromName(titleName)
+		if (t === null) {
+			return null
+		}
+		return t
 	}
 }
 
-const mutations = {}
+function GetData(resolveParent) {
+	if (state.HasListData) {
+		resolveParent('already retrieved')
+	}
 
-export default new Vuex.Store({
-	state,
-	actions,
-	mutations
-})
+	new Promise(function (resolve) {
+		GetListData(resolve)
+	}).then(function (data) {
+		SetListData(resolveParent, data)
+	})
+}
 
-function GetAllData() {
-	GetFeaturedData()
-	GetPopularData()
-	GetNewData()
-	GetListData()
+//hit firebase and get all data
+function GetListData(resolve) {
+	var key = 'list'
+	if (sessionStorage.getItem(key)) {
+		var data = JSON.parse(sessionStorage.getItem(key))
+		resolve(data)
+	} else {
+		var url = state.baseURL + 'Titles'
+		console.log('list=' + url)
+		var fireb = new Firebase(url)
+		fireb.on('value', function (snapshot) {
+			var data = snapshot.val()
+			sessionStorage.setItem(key, JSON.stringify(data))
+			resolve(data)
+		})
+	}
+}
+
+function GetTitleFromId(titleId) {
+	for (var t in state.TitlesList) {
+		var thisId = state.TitlesList[t].Id
+		if (thisId === titleId) {
+			return state.TitlesList[t]
+		}
+	}
+	return null
+}
+
+function GetTitleFromName(titleName) {
+	for (var t in state.TitlesList) {
+		var thisName = state.TitlesList[t].Name
+		if (thisName === titleName) {
+			return state.TitlesList[t]
+		}
+	}
+	return null
+}
+
+function SetListData(resolve, data) {
+	state.TitlesList = data.List
+	state.FeaturedTitles = []
+	data.Featured.forEach(function (tid) {
+		var found = GetTitleFromId(tid)
+		if (found !== null) {
+			state.FeaturedTitles.push(SetData(found))
+		} else {
+			console.log('warning, cant find title id:' + tid)
+		}
+	})
+
+	data.Popular.forEach(function (tid) {
+		var found = GetTitleFromId(tid)
+		if (found !== null) {
+			state.PopularTitles.push(SetData(found))
+		} else {
+			console.log('warning, cant find title id:' + tid)
+		}
+	})
+
+	data.New.forEach(function (tid) {
+		var found = GetTitleFromId(tid)
+		if (found !== null) {
+			state.NewTitles.push(SetData(found))
+		} else {
+			console.log('warning, cant find title id:' + tid)
+		}
+	})
+
+	state.HasListData = true
+	resolve('ok')
 }
 
 function SetData(item) {
 	item.HeadImage = (item.Images != null && item.Images.length >= 1) ? item.Images[0].URL : img
 	item.Images = (item.Images != null && item.Images.length > 0) ? item.Images : []
 	item.Link = '/Titles/Details/' + item.Name
-	var i = _.find(md.parse(item.Description), function (v) {
+	var mdp = md.parse(item.Description)
+	var i = mdp.find(function (v) {
 		if (v[0] === 'para' && v.length >= 2) {
 			return true
 		}
@@ -63,129 +138,11 @@ function SetData(item) {
 	} else {
 		item.DescriptionText = ''
 	}
+	return item
 }
 
-
-//#region popular
-function setPopularAppData(data) {
-	data.forEach(function (s) {
-		SetData(s)
-		state.PopularTitles.push(s)
-	})
-}
-
-//false means add a firebase callback and add data to cache later
-function LocalStorageUsed(key, callback) {
-	var timeoutkey = key + '_timeout'
-	var timeout = sessionStorage.getItem(timeoutkey)
-	var item = JSON.parse(sessionStorage.getItem(key))
-	if (!item) {
-		return false
-	}
-
-	if (timeout) {
-		var now = new Date().getTime()
-		var diff = now - timeout
-		var diffseconds = 30 * 60 * 1000
-			//expire
-		if (diff > diffseconds) {
-			sessionStorage.setItem(timeoutkey, null)
-			return false
-		}
-	}
-
-	sessionStorage.setItem(timeoutkey, new Date().getTime())
-	callback(item)
-	return true
-}
-
-function GetPopularData() {
-	var key = 'popular'
-	if (!LocalStorageUsed(key, setPopularAppData)) {
-		var fireb = new Firebase(state.baseURL + 'Titles/Popular')
-		fireb.on('value', function (snapshot) {
-			setPopularAppData(snapshot.val())
-			sessionStorage.setItem(key, JSON.stringify(state.PopularTitles))
-		})
-	}
-}
-//#endregion popular
-
-//#region featured
-function setFeaturedAppData(data) {
-	if (data === null) {
-		return
-	}
-
-	data.forEach(function (s) {
-		SetData(s)
-		state.FeaturedTitles.push(s)
-	})
-}
-
-function GetFeaturedData() {
-	var key = 'featured'
-	if (!LocalStorageUsed(key, setFeaturedAppData)) {
-		var fireb = new Firebase(state.baseURL + 'Titles/Featured')
-		fireb.on('value', function (snapshot) {
-			setFeaturedAppData(snapshot.val())
-			sessionStorage.setItem(key, JSON.stringify(state.FeaturedTitles))
-		})
-	}
-}
-//#end region featured
-
-//#region new
-function setNewAppData(data) {
-	if (data === null) {
-		return
-	}
-
-	data.forEach(function (s) {
-		SetData(s)
-		state.NewTitles.push(s)
-	})
-}
-
-function GetNewData() {
-	var key = 'new'
-	if (!LocalStorageUsed(key, setNewAppData)) {
-		var fireb = new Firebase(state.baseURL + 'Titles/New')
-		fireb.on('value', function (snapshot) {
-			setNewAppData(snapshot.val())
-			sessionStorage.setItem(key, JSON.stringify(state.NewTitles))
-		})
-	}
-}
-//#endregion new
-
-//#region list
-function SetListData(data) {
-	if (data === null) {
-		return
-	}
-
-	for (var key in data) {
-		SetData(data[key])
-		state.TitlesList.push(data[key])
-		if (data[key].IsGame === true) {
-			state.TitlesListGames.push(data[key])
-		} else {
-			state.TitlesListApplications.push(data[key])
-		}
-	}
-}
-
-function GetListData() {
-	var key = 'list'
-	if (sessionStorage.getItem(key)) {
-		SetListData(JSON.parse(sessionStorage.getItem(key)))
-	} else {
-		var fireb = new Firebase(state.baseURL + 'Titles/List')
-		fireb.on('value', function (snapshot) {
-			SetListData(snapshot.val())
-			sessionStorage.setItem(key, JSON.stringify(state.TitlesList))
-		})
-	}
-	//#endregion list
-}
+export default new Vuex.Store({
+	state,
+	actions
+	//mutations
+})
