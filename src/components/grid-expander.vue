@@ -33,9 +33,9 @@ var $ = require('jquery')
     //var _ = require('underscore')
 var lastSelectorId = -1
 if ($('.gridexpander').length !== 0) {
-$(window).resize(function() {
-    SetGridPosition(lastSelectorId, true)
-})
+    $(window).resize(function() {
+        SetGridPosition(lastSelectorId, true)
+    })
 }
 
 function goToByScroll(id) {
@@ -49,8 +49,8 @@ function ExecuteExpanded(selectorId, forceResize) {
     //find the next div that starts after the end of this one
     var item = $('#' + selectorId)
     if (item.length === 0) {
-      console.log('warning - item couldnt be found:' + selectorId)
-      return
+        console.log('warning - item couldnt be found:' + selectorId)
+        return
     }
     var bottom = item.offset().top
     var nextitem = Array.find(item.siblings(),
@@ -118,9 +118,9 @@ module.exports = {
     },
     watch: {
         'selectorId': function(val, oldVal) {
-          if ($('#gridexpander').length === 0) {
-            return
-          }
+            if ($('#gridexpander').length === 0) {
+                return
+            }
             this.expanded = false
             if (this.selectorId === -1) {
                 $('#gridexpander').insertAfter('body')

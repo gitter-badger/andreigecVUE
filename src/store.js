@@ -57,7 +57,6 @@ function GetListData(resolve) {
 		resolve(data)
 	} else {
 		var url = state.baseURL + 'Titles'
-		console.log('list=' + url)
 		var fireb = new Firebase(url)
 		fireb.on('value', function (snapshot) {
 			var data = snapshot.val()
